@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Treadmill Dashboard (FTMS)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <main class="max-w-3xl mx-auto p-4 sm:p-6 space-y-4">
+
+    <header class="flex items-center justify-between gap-3">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold">Treadmill Dashboard</h1>
+        <p id="status" class="text-sm text-slate-400">Not connected</p>
+      </div>
+      <button id="connectBtn"
+        class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold transition">
+        Connect
+      </button>
+    </header>
+
+    <div id="error" class="hidden rounded-lg bg-red-900/60 border border-red-700 p-3 text-sm"></div>
+
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl bg-slate-900 p-5 text-center">
+        <div class="text-xs uppercase tracking-widest text-slate-400">Speed</div>
+        <div id="speed" class="text-5xl font-bold tabular-nums mt-1">0.0</div>
+        <div class="text-slate-400">km/h</div>
+      </div>
+      <div class="rounded-2xl bg-slate-900 p-5 text-center">
+        <div class="text-xs uppercase tracking-widest text-slate-400">Distance</div>
+        <div id="distance" class="text-5xl font-bold tabular-nums mt-1">0.00</div>
+        <div class="text-slate-400">km</div>
+      </div>
+      <div class="rounded-2xl bg-slate-900 p-5 text-center">
+        <div class="text-xs uppercase tracking-widest text-slate-400">Time</div>
+        <div id="time" class="text-5xl font-bold tabular-nums mt-1">00:00</div>
+        <div class="text-slate-400">mm:ss</div>
+      </div>
+    </section>
+
+    <section class="rounded-2xl bg-slate-900 p-5 space-y-4">
+      <h2 class="font-semibold">Speed options</h2>
+      <div class="grid grid-cols-3 gap-2">
+        <button class="ctrl preset py-2 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40" data-speed="1" disabled>1.0 km/h</button>
+        <button class="ctrl preset py-2 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40" data-speed="2" disabled>2.0 km/h</button>
+        <button class="ctrl preset py-2 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40" data-speed="3" disabled>3.0 km/h</button>
+        <button class="ctrl preset py-2 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40" data-speed="4" disabled>4.0 km/h</button>
+        <button class="ctrl preset py-2 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40" data-speed="5" disabled>5.0 km/h</button>
+        <button class="ctrl preset py-2 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40" data-speed="6" disabled>6.0 km/h</button>
+      </div>
+      <div class="flex gap-2">
+        <input id="customSpeed" type="number" min="0" max="6" step="0.1" inputmode="decimal" placeholder="Custom speed (km/h)"
+          class="ctrl w-full px-4 py-2 rounded-lg bg-slate-800 disabled:opacity-40" disabled />
+        <button id="customBtn" class="ctrl px-4 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40" disabled>Set</button>
+      </div>
+    </section>
+
+    <section class="rounded-2xl bg-slate-900 p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="font-semibold">Controls</h2>
+        <span id="ctrlState" class="text-xs text-slate-400">Connect to a treadmill first</span>
+      </div>
+
+      <div class="flex items-center justify-center gap-4">
+        <button id="slower" class="ctrl w-14 h-14 rounded-full bg-slate-700 hover:bg-slate-600 text-3xl disabled:opacity-40" disabled>−</button>
+        <div class="text-center w-32">
+          <div class="text-xs uppercase tracking-widest text-slate-400">Target</div>
+          <div id="target" class="text-3xl font-bold tabular-nums">--</div>
+          <div class="text-slate-400 text-sm">km/h</div>
+        </div>
+        <button id="faster" class="ctrl w-14 h-14 rounded-full bg-slate-700 hover:bg-slate-600 text-3xl disabled:opacity-40" disabled>+</button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2">
+        <button id="startBtn" class="ctrl py-2 rounded-lg bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40" disabled>Start</button>
+        <button id="pauseBtn" class="ctrl py-2 rounded-lg bg-amber-700 hover:bg-amber-600 disabled:opacity-40" disabled>Pause</button>
+        <button id="stopBtn" class="ctrl py-2 rounded-lg bg-red-700 hover:bg-red-600 disabled:opacity-40" disabled>Stop</button>
+      </div>
+      <button id="resetBtn" class="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">Reset local timer &amp; distance</button>
+    </section>
+
+    <details class="rounded-2xl bg-slate-900 p-4 text-xs">
+      <summary class="cursor-pointer text-slate-400">Debug log</summary>
+      <pre id="log" class="mt-2 max-h-48 overflow-auto whitespace-pre-wrap text-slate-300"></pre>
+    </details>
+  </main>
+
+<script>
+"use strict";
+
+const UUID = {
+  FTMS_SERVICE:      0x1826,
+  FTMS_FEATURE:      0x2acc,
+  TREADMILL_DATA:    0x2acd,
+  SPEED_RANGE:       0x2ad4,
+  CONTROL_POINT:     0x2ad9,
+};
+
+// FTMS Control Point opcodes
+const OP = { REQUEST_CONTROL: 0x00, RESET: 0x01, SET_SPEED: 0x02, START: 0x07, STOP_PAUSE: 0x08, RESPONSE: 0x80 };
+const RESULT = { 1: "Success", 2: "Op code not supported", 3: "Invalid parameter", 4: "Operation failed", 5: "Control not permitted" };
+
+/* FTMS Treadmill Data (0x2ACD) parser. Little-endian. 16-bit Flags, then fields in fixed order,
+   each present only if its flag bit is set (bit 0 is INVERTED: 0 => speed present). */
+function parseTreadmillData(dv) {
+  let o = 0;
+  const u8  = () => { const v = dv.getUint8(o);          o += 1; return v; };
+  const u16 = () => { const v = dv.getUint16(o, true);   o += 2; return v; };
+  const s16 = () => { const v = dv.getInt16(o, true);    o += 2; return v; };
+  const u24 = () => { const v = dv.getUint16(o, true) | (dv.getUint8(o + 2) << 16); o += 3; return v; };
+
+  const flags = u16();
+  const has = (bit) => (flags & (1 << bit)) !== 0;
+  const r = {};
+
+  if (!has(0)) r.speedKmh = u16() * 0.01;
+  if (has(1))  r.avgSpeedKmh = u16() * 0.01;
+  if (has(2))  r.distanceM = u24();
+  if (has(3)) {
+    r.inclinePct = s16() * 0.1;
+    r.rampAngleDeg = s16() * 0.1;
+  }
+  if (has(4)) {
+    r.elevGainPosM = u16() * 0.1;
+    r.elevGainNegM = u16() * 0.1;
+  }
+  if (has(5))  r.paceMinPerKm = u8() * 0.1;
+  if (has(6))  r.avgPaceMinPerKm = u8() * 0.1;
+  if (has(7)) {
+    const total = u16(), perHour = u16(), perMin = u8();
+    if (total !== 0xffff)   r.energyKcal = total;
+    if (perHour !== 0xffff) r.energyPerHour = perHour;
+    if (perMin !== 0xff)    r.energyPerMin = perMin;
+  }
+  if (has(8))  r.heartRate = u8();
+  if (has(9))  r.metabolicEq = u8() * 0.1;
+  if (has(10)) r.elapsedS = u16();
+  if (has(11)) r.remainingS = u16();
+  if (has(12)) { r.forceOnBeltN = s16(); r.powerW = s16(); }
+  return r;
+}
+
+const state = {
+  device: null,
+  userDisconnected: false,
+  reconnecting: false,
+  controlPoint: null,
+  hasControl: false,
+  pending: null,
+  queue: Promise.resolve(),
+  speedMin: 0, speedMax: 6.0, speedStep: 0.1,
+  targetKmh: null,
+  speed: 0,
+  deviceDistanceM: null, deviceElapsedS: null,
+  localDistanceKm: 0, localSeconds: 0,
+  lastTick: performance.now(),
+};
+
+const $ = (id) => document.getElementById(id);
+const el = {
+  status: $("status"), error: $("error"), connect: $("connectBtn"), log: $("log"),
+  speed: $("speed"), distance: $("distance"), time: $("time"),
+  custom: $("customSpeed"),
+  target: $("target"), ctrlState: $("ctrlState"),
+  slower: $("slower"), faster: $("faster"), start: $("startBtn"), pause: $("pauseBtn"), stop: $("stopBtn"),
+};
+
+function log(msg) {
+  el.log.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+  el.log.scrollTop = el.log.scrollHeight;
+  console.log(msg);
+}
+function setStatus(msg) { el.status.textContent = msg; }
+function showError(msg) { el.error.textContent = msg; el.error.classList.remove("hidden"); log("ERROR: " + msg); }
+function clearError() { el.error.classList.add("hidden"); }
+function setControlsEnabled(on) {
+  document.querySelectorAll(".ctrl").forEach((b) => (b.disabled = !on));
+  el.ctrlState.textContent = on ? "Control granted" : "Controls unavailable";
+}
+
+/* Translate Web Bluetooth errors into something a human can act on */
+function explainError(e) {
+  switch (e && e.name) {
+    case "NotFoundError":
+      return /cancel/i.test(e.message) ? "Device selection was cancelled."
+        : "No matching device found. Make sure the treadmill is on, awake, and not connected to another app/phone.";
+    case "SecurityError":
+      return "Bluetooth blocked: the page must be on HTTPS or localhost, and Bluetooth permission must be allowed.";
+    case "NotAllowedError":
+      return "Bluetooth permission denied. Allow it in the browser/site settings and make sure Bluetooth is on.";
+    case "NetworkError":
+      return "Connection to the treadmill failed or dropped. Move closer and try again.";
+    case "NotSupportedError":
+      return "The treadmill doesn't support this operation.";
+    case "InvalidStateError":
+      return "Bluetooth is busy or the device is in an invalid state. Try reconnecting.";
+    default:
+      return (e && e.message) || String(e);
+  }
+}
+
+const fmtTime = (s) => {
+  s = Math.floor(s);
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  const mm = String(m).padStart(2, "0"), ss = String(sec).padStart(2, "0");
+  return h ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
+};
+
+function render() {
+  el.speed.textContent = state.speed.toFixed(1);
+  const km = state.deviceDistanceM != null ? state.deviceDistanceM / 1000 : state.localDistanceKm;
+  el.distance.textContent = km.toFixed(2);
+  el.time.textContent = fmtTime(state.deviceElapsedS != null ? state.deviceElapsedS : state.localSeconds);
+  el.target.textContent = state.targetKmh != null ? state.targetKmh.toFixed(1) : "--";
+}
+
+/* Local fallback integration (used if the treadmill omits distance / elapsed time) */
+setInterval(() => {
+  const now = performance.now();
+  const dt = (now - state.lastTick) / 1000;
+  state.lastTick = now;
+  if (state.device && state.device.gatt.connected && state.speed > 0) {
+    state.localSeconds += dt;
+    state.localDistanceKm += (state.speed * dt) / 3600;
+  }
+  render();
+}, 250);
+
+function onTreadmillData(ev) {
+  let d;
+  try { d = parseTreadmillData(ev.target.value); }
+  catch (e) { log("Bad treadmill packet: " + e.message); return; }
+
+  if (d.speedKmh != null) {
+    state.speed = d.speedKmh;
+    if (state.targetKmh == null) state.targetKmh = Math.max(state.speedMin, Math.round(d.speedKmh * 10) / 10);
+  }
+  if (d.distanceM != null) state.deviceDistanceM = d.distanceM;
+  if (d.elapsedS != null)  state.deviceElapsedS = d.elapsedS;
+  render();
+}
+
+/* Control-point indications: [0x80, requestOpcode, resultCode, ...] */
+function onControlResponse(ev) {
+  const v = ev.target.value;
+  if (v.getUint8(0) !== OP.RESPONSE) return;
+  const opcode = v.getUint8(1), result = v.getUint8(2);
+  log(`CP response: op 0x${opcode.toString(16)} -> ${RESULT[result] || result}`);
+  const p = state.pending;
+  if (p && p.opcode === opcode) {
+    clearTimeout(p.timer);
+    state.pending = null;
+    result === 1 ? p.resolve() : p.reject(new Error(RESULT[result] || `Result ${result}`));
+  }
+}
+
+function sendControl(bytes) {
+  const run = () => new Promise((resolve, reject) => {
+    if (!state.controlPoint) return reject(new Error("Control point not available"));
+    const timer = setTimeout(() => { state.pending = null; reject(new Error("Treadmill did not respond")); }, 5000);
+    state.pending = { opcode: bytes[0], resolve, reject, timer };
+    state.controlPoint.writeValueWithResponse(new Uint8Array(bytes)).catch((e) => {
+      clearTimeout(timer); state.pending = null; reject(e);
+    });
+  });
+  state.queue = state.queue.then(run, run);
+  return state.queue;
+}
+
+async function safeControl(label, bytes) {
+  try { clearError(); await sendControl(bytes); }
+  catch (e) { showError(`${label} failed: ${explainError(e)}`); }
+}
+
+const setSpeedBytes = (kmh) => {
+  const raw = Math.round(kmh * 100);
+  return [OP.SET_SPEED, raw & 0xff, (raw >> 8) & 0xff];
+};
+
+async function setSpeed(kmh) {
+  if (!Number.isFinite(kmh)) return;
+  const next = Math.min(state.speedMax, Math.max(state.speedMin, Math.round(kmh * 10) / 10));
+  state.targetKmh = next;
+  render();
+  await safeControl("Set speed", setSpeedBytes(next));
+}
+
+const changeSpeed = (delta) => setSpeed((state.targetKmh != null ? state.targetKmh : state.speed) + delta);
+
+// Preset buttons and custom speed input
+document.querySelectorAll(".preset").forEach((b) => (b.onclick = () => setSpeed(parseFloat(b.dataset.speed))));
+$("customBtn").onclick = () => {
+  const v = parseFloat(el.custom.value);
+  if (!Number.isFinite(v) || v < state.speedMin || v > state.speedMax) {
+    showError(`Enter a speed between ${state.speedMin.toFixed(1)} and ${state.speedMax.toFixed(1)} km/h.`);
+    return;
+  }
+  setSpeed(v);
+};
+el.custom.onkeydown = (e) => { if (e.key === "Enter") $("customBtn").click(); };
+
+el.faster.onclick = () => changeSpeed(+state.speedStep);
+el.slower.onclick = () => changeSpeed(-state.speedStep);
+el.start.onclick  = async () => {
+  await safeControl("Start", [OP.START]);
+  if (state.targetKmh != null) await safeControl("Set speed", setSpeedBytes(state.targetKmh));
+};
+el.pause.onclick  = async () => {
+  try {
+    clearError();
+    await sendControl([OP.STOP_PAUSE, 0x02]);
+    // Some treadmills ack pause with Success but keep running; verify the belt actually slowed
+    await new Promise((r) => setTimeout(r, 3000));
+    if (state.speed > 0.1) {
+      log("Pause acknowledged but belt still at " + state.speed.toFixed(1) + " km/h; setting speed to 0 instead");
+      await safeControl("Pause", setSpeedBytes(0));
+    }
+  } catch (e) {
+    // Many treadmills ignore or reject FTMS pause; drop the belt to 0 instead (target is kept so Start resumes)
+    log("Pause not accepted (" + explainError(e) + "); setting speed to 0 instead");
+    await safeControl("Pause", setSpeedBytes(0));
+  }
+};
+el.stop.onclick   = () => safeControl("Stop",  [OP.STOP_PAUSE, 0x01]);
+$("resetBtn").onclick = () => {
+  state.localSeconds = 0; state.localDistanceKm = 0;
+  state.deviceDistanceM = null; state.deviceElapsedS = null;
+  render();
+};
+
+async function setupGatt(server) {
+  let ftms = null;
+  try { ftms = await server.getPrimaryService(UUID.FTMS_SERVICE); } catch (_) { }
+
+  if (ftms) {
+    const data = await ftms.getCharacteristic(UUID.TREADMILL_DATA);
+    data.addEventListener("characteristicvaluechanged", onTreadmillData);
+    await data.startNotifications();
+    log("Subscribed to Treadmill Data");
+
+    try {
+      const rng = await (await ftms.getCharacteristic(UUID.SPEED_RANGE)).readValue();
+      state.speedMin  = rng.getUint16(0, true) * 0.01;
+      state.speedMax  = rng.getUint16(2, true) * 0.01;
+      state.speedStep = Math.max(0.1, rng.getUint16(4, true) * 0.01);
+      log(`Speed range ${state.speedMin}-${state.speedMax} km/h`);
+    } catch (_) { log("Speed range not readable; using defaults"); }
+
+    try {
+      const cp = await ftms.getCharacteristic(UUID.CONTROL_POINT);
+      cp.addEventListener("characteristicvaluechanged", onControlResponse);
+      await cp.startNotifications();
+      state.controlPoint = cp;
+      await sendControl([OP.REQUEST_CONTROL]);
+      state.hasControl = true;
+      setControlsEnabled(true);
+      log("Control granted");
+    } catch (e) {
+      state.hasControl = false;
+      setControlsEnabled(false);
+      el.ctrlState.textContent = "Read-only (control not supported/permitted)";
+      log("Control unavailable: " + explainError(e));
+    }
+  }
+
+  if (!ftms) log("No FTMS service on this device (unsupported treadmill).");
+}
+
+async function connectToDevice(device) {
+  setStatus(`Connecting to ${device.name || "device"}…`);
+  const server = await device.gatt.connect();
+  await setupGatt(server);
+  setStatus(`Connected: ${device.name || "device"}`);
+  el.connect.textContent = "Disconnect";
+  el.connect.classList.replace("bg-emerald-600", "bg-red-600");
+  el.connect.classList.replace("hover:bg-emerald-500", "hover:bg-red-500");
+}
+
+function resetUiDisconnected(msg) {
+  setStatus(msg);
+  setControlsEnabled(false);
+  el.ctrlState.textContent = "Connect to a treadmill first";
+  el.connect.textContent = "Connect";
+  el.connect.classList.replace("bg-red-600", "bg-emerald-600");
+  el.connect.classList.replace("hover:bg-red-500", "hover:bg-emerald-500");
+  state.speed = 0; state.hasControl = false; state.controlPoint = null;
+  render();
+}
+
+/* Auto-reconnect with exponential backoff (1,2,4,8,16 s) */
+async function reconnect() {
+  if (state.reconnecting) return;
+  state.reconnecting = true;
+  for (let attempt = 1; attempt <= 5 && !state.userDisconnected; attempt++) {
+    const wait = 1000 * 2 ** (attempt - 1);
+    setStatus(`Connection lost. Reconnecting (${attempt}/5) in ${wait / 1000}s…`);
+    await new Promise((r) => setTimeout(r, wait));
+    if (state.userDisconnected) break;
+    try {
+      await connectToDevice(state.device);
+      clearError();
+      state.reconnecting = false;
+      log("Reconnected");
+      return;
+    } catch (e) { log(`Reconnect ${attempt} failed: ${explainError(e)}`); }
+  }
+  state.reconnecting = false;
+  if (!state.userDisconnected) {
+    resetUiDisconnected("Disconnected");
+    showError("Could not reconnect automatically. Press Connect to try again.");
+  }
+}
+
+function onGattDisconnected() {
+  log("GATT disconnected");
+  if (state.pending) { clearTimeout(state.pending.timer); state.pending = null; }
+  setControlsEnabled(false);
+  state.speed = 0; render();
+  if (!state.userDisconnected) reconnect();
+  else resetUiDisconnected("Disconnected");
+}
+
+async function connect() {
+  clearError();
+  state.userDisconnected = false;
+  try {
+    // Show only devices advertising FTMS
+    const device = await navigator.bluetooth.requestDevice({
+      filters: [{ services: [UUID.FTMS_SERVICE] }],
+    });
+    if (state.device) state.device.removeEventListener("gattserverdisconnected", onGattDisconnected);
+    state.device = device;
+    device.addEventListener("gattserverdisconnected", onGattDisconnected);
+    state.lastTick = performance.now();
+    await connectToDevice(device);
+  } catch (e) {
+    const msg = explainError(e);
+    if (e.name === "NotFoundError" && /cancel/i.test(e.message)) { log(msg); setStatus("Not connected"); }
+    else { showError(msg); resetUiDisconnected("Not connected"); }
+  }
+}
+
+function disconnect() {
+  state.userDisconnected = true;
+  if (state.device && state.device.gatt.connected) state.device.gatt.disconnect();
+  else resetUiDisconnected("Disconnected");
+}
+
+el.connect.onclick = () => {
+  if (state.device && state.device.gatt.connected) disconnect(); else connect();
+};
+
+(function init() {
+  setControlsEnabled(false);
+  el.ctrlState.textContent = "Connect to a treadmill first";
+  if (!window.isSecureContext) {
+    showError("Web Bluetooth needs a secure context. Open this page via https:// or http://localhost.");
+    el.connect.disabled = true;
+  } else if (!("bluetooth" in navigator)) {
+    showError("This browser doesn't support Web Bluetooth. Use Chrome or Edge on desktop/Android (iOS: the Bluefy browser).");
+    el.connect.disabled = true;
+  } else {
+    navigator.bluetooth.getAvailability?.().then((ok) => {
+      if (!ok) showError("No Bluetooth adapter available, or Bluetooth is turned off.");
+    }).catch(() => {});
+  }
+  render();
+})();
+</script>
+</body>
+</html>
