@@ -4,18 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Treadmill Dashboard (FTMS)</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
   <main class="max-w-3xl mx-auto p-4 sm:p-6 space-y-4">
 
     <header class="flex items-center justify-between gap-3">
-      <div>
-        <h1 class="text-xl sm:text-2xl font-bold">Treadmill Dashboard</h1>
-        <p id="status" class="text-sm text-slate-400">Not connected</p>
+      <div class="flex items-center gap-3">
+        <img src="favicon.svg" alt="" class="w-10 h-10" />
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold">Treadmill Dashboard</h1>
+          <p id="status" class="text-sm text-slate-400">Not connected</p>
+        </div>
       </div>
       <button id="connectBtn"
-        class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold transition">
+        class="px-4 py-2 rounded-lg bg-emerald-300 hover:bg-emerald-200 text-slate-900 font-semibold transition">
         Connect
       </button>
     </header>
@@ -53,7 +57,7 @@
       <div class="flex gap-2">
         <input id="customSpeed" type="number" min="0" max="6" step="0.1" inputmode="decimal" placeholder="Custom speed (km/h)"
           class="ctrl w-full px-4 py-2 rounded-lg bg-slate-800 disabled:opacity-40" disabled />
-        <button id="customBtn" class="ctrl px-4 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40" disabled>Set</button>
+        <button id="customBtn" class="ctrl px-4 py-2 rounded-lg bg-emerald-300 hover:bg-emerald-200 text-slate-900 disabled:opacity-40" disabled>Set</button>
       </div>
     </section>
 
@@ -74,7 +78,7 @@
       </div>
 
       <div class="grid grid-cols-3 gap-2">
-        <button id="startBtn" class="ctrl py-2 rounded-lg bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40" disabled>Start</button>
+        <button id="startBtn" class="ctrl py-2 rounded-lg bg-emerald-300 hover:bg-emerald-200 text-slate-900 disabled:opacity-40" disabled>Start</button>
         <button id="pauseBtn" class="ctrl py-2 rounded-lg bg-amber-700 hover:bg-amber-600 disabled:opacity-40" disabled>Pause</button>
         <button id="stopBtn" class="ctrl py-2 rounded-lg bg-red-700 hover:bg-red-600 disabled:opacity-40" disabled>Stop</button>
       </div>
@@ -374,8 +378,9 @@ async function connectToDevice(device) {
   await setupGatt(server);
   setStatus(`Connected: ${device.name || "device"}`);
   el.connect.textContent = "Disconnect";
-  el.connect.classList.replace("bg-emerald-600", "bg-red-600");
-  el.connect.classList.replace("hover:bg-emerald-500", "hover:bg-red-500");
+  el.connect.classList.replace("bg-emerald-300", "bg-red-600");
+  el.connect.classList.replace("hover:bg-emerald-200", "hover:bg-red-500");
+  el.connect.classList.replace("text-slate-900", "text-white");
 }
 
 function resetUiDisconnected(msg) {
@@ -383,8 +388,9 @@ function resetUiDisconnected(msg) {
   setControlsEnabled(false);
   el.ctrlState.textContent = "Connect to a treadmill first";
   el.connect.textContent = "Connect";
-  el.connect.classList.replace("bg-red-600", "bg-emerald-600");
-  el.connect.classList.replace("hover:bg-red-500", "hover:bg-emerald-500");
+  el.connect.classList.replace("bg-red-600", "bg-emerald-300");
+  el.connect.classList.replace("hover:bg-red-500", "hover:bg-emerald-200");
+  el.connect.classList.replace("text-white", "text-slate-900");
   state.speed = 0; state.hasControl = false; state.controlPoint = null;
   render();
 }
