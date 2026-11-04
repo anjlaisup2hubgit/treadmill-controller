@@ -2,513 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2f6b48" />
+  <meta name="color-scheme" content="light" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Treadmill" />
   <title>Treadmill Dashboard (FTMS)</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="glass.css" />
 </head>
 <body>
-  <!-- shared icon symbols (24-unit grid scaled to the button: 100 x 100) -->
+  <!-- shared gradients and filters used by every glass element -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <radialGradient id="logoFill" cx=".4" cy=".28" r=".9"><stop offset="0" stop-color="#63ba5f"/><stop offset=".45" stop-color="#2f8a3f"/><stop offset="1" stop-color="#114f27"/></radialGradient>
-      <symbol id="i-minus" viewBox="0 0 100 100"><line x1="33" y1="50" x2="67" y2="50" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></symbol>
-      <symbol id="i-plus" viewBox="0 0 100 100"><g stroke="currentColor" stroke-width="7" stroke-linecap="round"><line x1="33" y1="50" x2="67" y2="50"/><line x1="50" y1="33" x2="50" y2="67"/></g></symbol>
-      <symbol id="i-play" viewBox="0 0 100 100"><path d="M34 30 L70 50 L34 70 Z" fill="currentColor" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/></symbol>
-      <symbol id="i-pause" viewBox="0 0 100 100"><g fill="currentColor"><rect x="33" y="33" width="11" height="34" rx="4.4"/><rect x="56" y="33" width="11" height="34" rx="4.4"/></g></symbol>
-      <symbol id="i-stop" viewBox="0 0 100 100"><rect x="36" y="36" width="28" height="28" rx="7" fill="#c2402f"/></symbol>
-      <symbol id="i-reset" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M63.02 39.07 A17 17 0 1 0 64.72 58.5"/><polyline points="66.46,69.89 64.72,58.5 53.98,62.69"/></g></symbol>
-      <symbol id="i-route" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="38" cy="62" r="5.5"/><circle cx="62" cy="38" r="5.5"/><path d="M44 62 H52 Q56 62 56 57 V47 Q56 40 60 40"/></g></symbol>
-      <symbol id="i-clock" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="19"/><polyline points="50,41 50,50 57,54"/></g></symbol>
-      <symbol id="i-chev" viewBox="0 0 100 100"><g fill="none" stroke="#e8ffc0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><polyline points="36,35 50,50 36,65" transform="translate(10 0)"/><polyline points="36,35 50,50 36,65" transform="translate(-8 0)" opacity=".55"/></g></symbol>
-    </defs>
-  </svg>
+<defs>
+<style>text{font-family:Inter,'SF Pro Display','Segoe UI',system-ui,sans-serif;}</style>
+<linearGradient id="bg" x1="0" y1="0" x2="0.55" y2="1">
+ <stop offset="0" stop-color="#2f6b48"/><stop offset=".45" stop-color="#6b9f4a"/><stop offset="1" stop-color="#c9d94a"/></linearGradient>
+<!-- glass panel: clear, slightly greyed body -->
+<linearGradient id="pBody" x1="0" y1="0" x2="1" y2="1">
+ <stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".45" stop-color="#e4efd6" stop-opacity=".13"/>
+ <stop offset=".8" stop-color="#eaffb0" stop-opacity=".10"/><stop offset="1" stop-color="#f4ffc8" stop-opacity=".34"/></linearGradient>
+<linearGradient id="pRim" x1="0" y1="0" x2="1" y2="1">
+ <stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#fff" stop-opacity=".5"/><stop offset=".55" stop-color="#fff" stop-opacity=".28"/>
+ <stop offset=".8" stop-color="#fff" stop-opacity=".7"/><stop offset="1" stop-color="#fff"/></linearGradient>
+<linearGradient id="pLine" x1="0" y1="0" x2="1" y2="1">
+ <stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".35" stop-color="#fff" stop-opacity=".3"/><stop offset=".65" stop-color="#fff" stop-opacity=".25"/>
+ <stop offset="1" stop-color="#fff" stop-opacity=".9"/></linearGradient>
+<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<!-- bubble buttons -->
+<radialGradient id="gPale" cx=".5" cy=".45" r=".62"><stop offset="0" stop-color="#f4ffd0" stop-opacity=".3"/><stop offset=".6" stop-color="#d6ef86" stop-opacity=".55"/><stop offset="1" stop-color="#f2ffc8" stop-opacity=".95"/></radialGradient>
+<radialGradient id="gWhite" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".98"/><stop offset="1" stop-color="#e6f2cc" stop-opacity=".96"/></radialGradient>
+<radialGradient id="gDark" cx=".5" cy=".38" r=".72"><stop offset="0" stop-color="#43a04a"/><stop offset=".55" stop-color="#1d7433"/><stop offset="1" stop-color="#0b4120"/></radialGradient>
+<radialGradient id="gGlowPale" cx=".65" cy=".92" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<radialGradient id="gGlowDark" cx=".5" cy="1" r=".75"><stop offset="0" stop-color="#c4f560" stop-opacity=".75"/><stop offset="1" stop-color="#c4f560" stop-opacity="0"/></radialGradient>
+<linearGradient id="gRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".42" stop-color="#fff" stop-opacity=".1"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity=".85"/></linearGradient>
+<linearGradient id="fillBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1d7a3a"/><stop offset="1" stop-color="#c4f560"/></linearGradient>
+<linearGradient id="fillTall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8ff9a" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity=".98"/></linearGradient>
+<linearGradient id="emptyTall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8a3f" stop-opacity=".95"/><stop offset="1" stop-color="#3f9a48" stop-opacity=".85"/></linearGradient>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#0b3a1c" flood-opacity=".28"/></filter>
+<filter id="bshadow" x="-40%" y="-40%" width="180%" height="190%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0a3519" flood-opacity=".32"/></filter>
+<filter id="tshadow" x="-10%" y="-20%" width="120%" height="150%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#0b3a1c" flood-opacity=".45"/></filter>
+<filter id="b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+<filter id="b6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.1"/></filter>
+<filter id="b60" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="50"/></filter>
+</defs></svg>
+  <svg class="bg bg-m" viewBox="0 0 430 932" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="430" height="932" fill="url(#bg)"/><circle cx="20" cy="20" r="190" fill="#22563a" opacity="0.65" filter="url(#b60)"/><circle cx="215" cy="8" r="150" fill="#a9d38a" opacity="0.45" filter="url(#b60)"/><circle cx="350" cy="912" r="230" fill="#e8f27a" opacity="0.6" filter="url(#b60)"/><circle cx="40" cy="812" r="150" fill="#7fb24a" opacity="0.5" filter="url(#b60)"/><circle cx="60" cy="700" r="20" fill="#d3f08a" opacity="0.18" filter="url(#b2)"/><circle cx="380" cy="640" r="26" fill="#f3ff9a" opacity="0.16" filter="url(#b2)"/><circle cx="330" cy="870" r="28" fill="#f3ff9a" opacity="0.2" filter="url(#b2)"/><circle cx="110" cy="880" r="18" fill="#f3ff9a" opacity="0.17" filter="url(#b2)"/><circle cx="380" cy="150" r="22" fill="#ffffff" opacity="0.18" filter="url(#b2)"/><circle cx="30" cy="330" r="18" fill="#ffffff" opacity="0.14" filter="url(#b2)"/><circle cx="400" cy="480" r="20" fill="#d3f08a" opacity="0.16" filter="url(#b2)"/><circle cx="190" cy="905" r="8" fill="#ffffff" opacity="0.5" filter="url(#b2)"/><circle cx="80" cy="820" r="7" fill="#f0a0ea" opacity="0.55" filter="url(#b2)"/></svg>
+  <svg class="bg bg-d" viewBox="0 0 1440 840" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="1440" height="840" fill="url(#bg)"/><circle cx="72" cy="17" r="380" fill="#22563a" opacity="0.65" filter="url(#b60)"/><circle cx="720" cy="17" r="300" fill="#a9d38a" opacity="0.45" filter="url(#b60)"/><circle cx="1180" cy="820" r="460" fill="#e8f27a" opacity="0.6" filter="url(#b60)"/><circle cx="150" cy="740" r="300" fill="#7fb24a" opacity="0.5" filter="url(#b60)"/><circle cx="201" cy="631" r="20" fill="#d3f08a" opacity="0.18" filter="url(#b2)"/><circle cx="1273" cy="577" r="26" fill="#f3ff9a" opacity="0.16" filter="url(#b2)"/><circle cx="1105" cy="784" r="28" fill="#f3ff9a" opacity="0.2" filter="url(#b2)"/><circle cx="368" cy="793" r="18" fill="#f3ff9a" opacity="0.17" filter="url(#b2)"/><circle cx="1273" cy="135" r="22" fill="#ffffff" opacity="0.18" filter="url(#b2)"/><circle cx="100" cy="297" r="18" fill="#ffffff" opacity="0.14" filter="url(#b2)"/><circle cx="1340" cy="433" r="20" fill="#d3f08a" opacity="0.16" filter="url(#b2)"/><circle cx="636" cy="816" r="8" fill="#ffffff" opacity="0.5" filter="url(#b2)"/><circle cx="268" cy="739" r="7" fill="#f0a0ea" opacity="0.55" filter="url(#b2)"/></svg>
+
+  <div id="error" class="err" role="alert" hidden></div>
 
   <main class="page">
-
-    <header class="top">
-      <div class="brand">
-        <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="1" y="1" width="62" height="62" rx="16" fill="url(#logoFill)" stroke="#bff08a" stroke-opacity=".7" stroke-width="2"/><g fill="none" stroke="#d7ff8a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18 28 32 14 46" opacity=".4"/><path d="M26 18 40 32 26 46" opacity=".7"/><path d="M38 18 52 32 38 46"/></g></svg>
-        <div>
-          <h1>Treadmill</h1>
-          <p><i id="statusDot" class="dot"></i><span id="status">Not connected</span></p>
-        </div>
-      </div>
-      <button id="connectBtn" class="gbtn pill" style="--w:164;--h:52;--r:18;padding-left:8px;gap:14px;font-size:16px">
-        <span class="gbtn dark" style="--s:40;--r:12"><svg class="ic"><use href="#i-chev"/></svg></span>
-        <span id="connectLabel">Connect</span>
-      </button>
-    </header>
-
-    <div id="error" class="hidden glass plain err"></div>
-
-    <div class="board">
-
-      <!-- hero: speed gauge -->
-      <section class="glass hero"><div class="hero-in">
-        <button id="resetBtn" class="gbtn pill reset at" style="--x:712;--y:26;--w:122;--h:44;--r:14">
-          <svg class="ic sm"><use href="#i-reset"/></svg><span>Reset</span>
-        </button>
-
-        <svg class="gauge" viewBox="0 0 860 650" aria-hidden="false">
-          <defs>
-            <linearGradient id="prog" gradientUnits="userSpaceOnUse" x1="255" y1="401.2" x2="430" y2="95"><stop offset="0" stop-color="#1d7a3a"/><stop offset="1" stop-color="#b4e04a"/></linearGradient>
-            <radialGradient id="knobFill" cx=".4" cy=".3" r=".9"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#eaf4d4"/></radialGradient>
-            <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
-          </defs>
-          <path d="M306.3 393.7 A175 175 0 1 1 553.7 393.7" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="20" stroke-linecap="round"/>
-          <path id="arcGlow" fill="none" stroke="#9be04a" stroke-opacity=".55" stroke-width="26" stroke-linecap="round" filter="url(#glow)"/>
-          <path id="arc" fill="none" stroke="url(#prog)" stroke-width="20" stroke-linecap="round"/>
-          <circle id="knob" cx="306.3" cy="393.7" r="18" fill="url(#knobFill)" stroke="#2f8a3f" stroke-width="5.6"/>
-          <text x="286.3" y="433.7" font-size="15" font-weight="600" fill="#2f5f3d" text-anchor="middle">0</text>
-          <text id="maxLabel" x="573.7" y="433.7" font-size="15" font-weight="600" fill="#2f5f3d" text-anchor="middle">12</text>
-          <text x="430" y="218" font-size="15" font-weight="600" fill="#2f5f3d" text-anchor="middle" letter-spacing="4">SPEED</text>
-          <text id="speed" class="num" x="430" y="322" font-size="132" font-weight="700" fill="#0f3d22" text-anchor="middle" style="font-variant-numeric:tabular-nums">0.0</text>
-          <text x="430" y="358" font-size="22" font-weight="500" fill="#2f5f3d" text-anchor="middle">km/h</text>
-        </svg>
-        <input id="customSpeed" class="ctrl speed-input" type="number" min="0" max="6" step="0.1" inputmode="decimal" aria-label="Speed in km/h" hidden disabled />
-
-        <button id="slower" class="gbtn ctrl at" style="--x:332;--y:430;--s:68;--r:20.4" aria-label="Slower"><svg class="ic"><use href="#i-minus"/></svg></button>
-        <button id="faster" class="gbtn ctrl at" style="--x:460;--y:430;--s:68;--r:20.4" aria-label="Faster"><svg class="ic"><use href="#i-plus"/></svg></button>
-        <button id="toggleBtn" class="gbtn white ctrl at" style="--x:339;--y:528;--s:92;--r:27.6" aria-label="Start / pause">
-          <svg class="ic i-play"><use href="#i-play"/></svg><svg class="ic i-pause"><use href="#i-pause"/></svg>
-        </button>
-        <button id="stopBtn" class="gbtn ctrl at" style="--x:453;--y:540;--s:68;--r:20.4" aria-label="Stop"><svg class="ic"><use href="#i-stop"/></svg></button>
-      </div></section>
-
-      <div class="side">
-        <section class="glass rt dt"><div class="rt-in">
-          <svg class="fill" viewBox="0 0 380 200"><text class="lbl" x="36" y="50">DISTANCE</text><text class="big" x="36" y="144"><tspan id="distance">0.00</tspan><tspan class="unit" dx="12">km</tspan></text></svg>
-          <span class="gbtn at" style="--x:310;--y:22;--s:56;--r:16.8"><svg class="ic"><use href="#i-route"/></svg></span>
-        </div></section>
-
-        <section class="glass rt dt"><div class="rt-in">
-          <svg class="fill" viewBox="0 0 380 200"><text class="lbl" x="36" y="50">TIME</text><text class="big" x="36" y="144"><tspan id="time">00:00</tspan></text></svg>
-          <span class="gbtn at" style="--x:310;--y:22;--s:56;--r:16.8"><svg class="ic"><use href="#i-clock"/></svg></span>
-        </div></section>
-
-        <section class="glass rt q"><div class="rt-in">
-          <svg class="fill" viewBox="0 0 380 210"></svg>
-          <button class="gbtn preset ctrl at" style="--x:41;--y:64;--s:60;--r:18" data-speed="1" disabled>1.0</button>
-          <button class="gbtn preset ctrl at" style="--x:160;--y:64;--s:60;--r:18" data-speed="2" disabled>2.0</button>
-          <button class="gbtn preset ctrl at" style="--x:279;--y:64;--s:60;--r:18" data-speed="3" disabled>3.0</button>
-          <button class="gbtn preset ctrl at" style="--x:41;--y:134;--s:60;--r:18" data-speed="4" disabled>4.0</button>
-          <button class="gbtn preset ctrl at" style="--x:160;--y:134;--s:60;--r:18" data-speed="5" disabled>5.0</button>
-          <button class="gbtn preset ctrl at" style="--x:279;--y:134;--s:60;--r:18" data-speed="6" disabled>6.0</button>
-        </div></section>
-      </div>
-    </div>
-
-    <details class="glass plain log">
-      <summary>Log</summary>
-      <pre id="log"></pre>
-    </details>
+    <section class="stage stage-m" aria-label="Treadmill controls">
+      <div class="canvas"><header class="el head" style="--x:0;--y:0;--w:430;--h:130" ><svg class="" viewBox="0 0 430 130" aria-hidden="true"><g><rect x="24" y="56" width="52" height="52" rx="16" fill="url(#gDark)"/><rect x="24" y="56" width="52" height="52" rx="16" fill="url(#gGlowDark)"/><rect x="24" y="56" width="52" height="52" rx="16" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="31.28" y="59.12" width="37.44" height="15.6" rx="11.2" fill="url(#gloss)" opacity="0.6"/><ellipse cx="27.9" cy="82.0" rx="1.04" ry="8.84" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="72.1" cy="82.0" rx="1.04" ry="8.84" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="50.0" cy="103.06" rx="7.280000000000001" ry="0.9359999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="25.2" y="57.2" width="49.6" height="49.6" rx="14.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(36.0,68.0) scale(1.1666666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6l6 6-6 6" opacity=".4" stroke="#b6f27a" stroke-width="2.6"/><path d="M10 6l6 6-6 6" opacity=".7" stroke="#b6f27a" stroke-width="2.6"/><path d="M15 6l6 6-6 6" stroke="#b6f27a" stroke-width="2.6"/></g><text x="90" y="78" font-size="26" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">Treadmill</text><circle class="halo" cx="95" cy="98" r="9" fill="#c9f27a" fill-opacity="0"/><circle class="sdot" cx="95" cy="98" r="5"/><text class="status" data-max="182" x="108" y="103" font-size="15" font-weight="500" fill="#fff" text-anchor="start" opacity="0.92" letter-spacing="0" filter="url(#tshadow)">Not connected</text></svg></header><button type="button" class="el b conn" style="--x:302;--y:58;--w:104;--h:48" aria-label="Connect to treadmill" data-act="connect"><svg viewBox="302 58 104 48" aria-hidden="true"><g class="k"><g><rect x="302" y="58" width="104" height="48" rx="16" fill="url(#gPale)"/><rect x="302" y="58" width="104" height="48" rx="16" fill="url(#gGlowPale)"/><rect x="302" y="58" width="104" height="48" rx="16" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="316.56" y="60.88" width="74.88" height="14.399999999999999" rx="11.2" fill="url(#gloss)" opacity="0.85"/><ellipse cx="309.8" cy="82.0" rx="2.08" ry="8.16" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="398.2" cy="82.0" rx="2.08" ry="8.16" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="354.0" cy="101.44" rx="14.560000000000002" ry="0.8639999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="303.2" y="59.2" width="101.6" height="45.6" rx="14.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text data-bind="connectLabel" x="354" y="88" font-size="17" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">Connect</text></g></svg></button><div class="el panel" style="--x:24;--y:136;--w:382;--h:268" ><svg class="" viewBox="24 136 382 268" aria-hidden="true"><g><clipPath id="c1"><rect x="24" y="136" width="382" height="268" rx="40"/></clipPath><rect x="24" y="136" width="382" height="268" rx="40" fill="url(#pBody)"/><g clip-path="url(#c1)"><rect x="24" y="136" width="382" height="268" rx="40" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="115.67999999999999" cy="141" rx="76.4" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="306.68" cy="399" rx="99.32000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="25.8" y="137.8" width="378.4" height="264.4" rx="38.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="32" y="144" width="366" height="252" rx="32" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el wheel" style="--x:24;--y:136;--w:382;--h:268" data-cx="215" data-cy="262" data-r="100"><svg class="" viewBox="24 136 382 268" aria-hidden="true"><defs><linearGradient id="progm" gradientUnits="userSpaceOnUse" x1="144.3" y1="332.7" x2="215" y2="162"><stop offset="0" stop-color="#1d7a3a"/><stop offset="1" stop-color="#c4f560"/></linearGradient></defs><path d="M144.3 332.7A100 100 0 1 1 285.7 332.7" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="18" stroke-linecap="round"/><path class="w-arc" d="" fill="none" stroke="url(#progm)" stroke-width="18" stroke-linecap="round"/><circle class="w-ksh" cx="144.3" cy="334.7" r="19" fill="#0b3a1c" fill-opacity=".3" filter="url(#b2)"/><circle class="w-knob" cx="144.3" cy="332.7" r="17" fill="url(#gWhite)" stroke="#2f8a3f" stroke-width="4.8"/><text x="144.28932188134524" y="364.71067811865476" font-size="15" font-weight="600" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0">0</text><text class="w-max" x="285.71067811865476" y="364.71067811865476" font-size="15" font-weight="600" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0">12</text><text x="215" y="209.92000000000002" font-size="14" font-weight="700" fill="#fff" text-anchor="middle" opacity="0.85" letter-spacing="2" filter="url(#tshadow)">SPEED</text><text class="num" data-bind="speed" data-act="editspeed" x="215" y="288.88" font-size="84" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">0.0</text><text x="215" y="324.88" font-size="20" font-weight="600" fill="#0f3d22" text-anchor="middle" opacity="0.85" letter-spacing="0">km/h</text></svg></div><div class="el ov" style="--x:24;--y:136;--w:382;--h:268" ><svg class="" viewBox="24 136 382 268" aria-hidden="true"><text data-bind="caption" x="215" y="388" font-size="15" font-weight="500" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0" filter="url(#tshadow)">Connect to a treadmill to start</text></svg></div><div class="el panel" style="--x:24;--y:424;--w:183;--h:104" ><svg class="" viewBox="24 424 183 104" aria-hidden="true"><g><clipPath id="c2"><rect x="24" y="424" width="183" height="104" rx="32"/></clipPath><rect x="24" y="424" width="183" height="104" rx="32" fill="url(#pBody)"/><g clip-path="url(#c2)"><rect x="24" y="424" width="183" height="104" rx="32" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="67.92" cy="429" rx="36.6" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="159.42" cy="523" rx="47.58" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="25.8" y="425.8" width="179.4" height="100.4" rx="30.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="32" y="432" width="167" height="88" rx="24" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el b static" style="--x:44;--y:452;--w:48;--h:48" ><svg class="" viewBox="44 452 48 48" aria-hidden="true"><g><rect x="44" y="452" width="48" height="48" rx="15" fill="url(#gPale)"/><rect x="44" y="452" width="48" height="48" rx="15" fill="url(#gGlowPale)"/><rect x="44" y="452" width="48" height="48" rx="15" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="50.72" y="454.88" width="34.56" height="14.399999999999999" rx="10.5" fill="url(#gloss)" opacity="0.85"/><ellipse cx="47.6" cy="476.0" rx="0.96" ry="8.16" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="88.4" cy="476.0" rx="0.96" ry="8.16" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="68.0" cy="495.44" rx="6.720000000000001" ry="0.8639999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="45.2" y="453.2" width="45.6" height="45.6" rx="13.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(56.0,464.0) scale(1.0)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 5h11l-2.5 3.6L17 12H6" stroke="#0f3d22" stroke-width="2.2"/></g></svg></div><div class="el ov" style="--x:24;--y:424;--w:183;--h:104" ><svg class="" viewBox="24 424 183 104" aria-hidden="true"><text x="104" y="466" font-size="12" font-weight="700" fill="#fff" text-anchor="start" opacity="0.85" letter-spacing="1.2" filter="url(#tshadow)">DISTANCE</text><text data-bind="distance" x="104" y="496" font-size="27" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">0.00</text></svg></div><div class="el panel" style="--x:223;--y:424;--w:183;--h:104" ><svg class="" viewBox="223 424 183 104" aria-hidden="true"><g><clipPath id="c3"><rect x="223" y="424" width="183" height="104" rx="32"/></clipPath><rect x="223" y="424" width="183" height="104" rx="32" fill="url(#pBody)"/><g clip-path="url(#c3)"><rect x="223" y="424" width="183" height="104" rx="32" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="266.92" cy="429" rx="36.6" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="358.41999999999996" cy="523" rx="47.58" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="224.8" y="425.8" width="179.4" height="100.4" rx="30.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="231" y="432" width="167" height="88" rx="24" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el b static" style="--x:243;--y:452;--w:48;--h:48" ><svg class="" viewBox="243 452 48 48" aria-hidden="true"><g><rect x="243" y="452" width="48" height="48" rx="15" fill="url(#gPale)"/><rect x="243" y="452" width="48" height="48" rx="15" fill="url(#gGlowPale)"/><rect x="243" y="452" width="48" height="48" rx="15" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="249.72" y="454.88" width="34.56" height="14.399999999999999" rx="10.5" fill="url(#gloss)" opacity="0.85"/><ellipse cx="246.6" cy="476.0" rx="0.96" ry="8.16" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="287.4" cy="476.0" rx="0.96" ry="8.16" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="267.0" cy="495.44" rx="6.720000000000001" ry="0.8639999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="244.2" y="453.2" width="45.6" height="45.6" rx="13.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(255.0,464.0) scale(1.0)" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5" stroke="#0f3d22" stroke-width="2.2"/><path d="M12 7v5.2l3.2 2" stroke="#0f3d22" stroke-width="2.2"/></g></svg></div><div class="el ov" style="--x:223;--y:424;--w:183;--h:104" ><svg class="" viewBox="223 424 183 104" aria-hidden="true"><text x="303" y="466" font-size="12" font-weight="700" fill="#fff" text-anchor="start" opacity="0.85" letter-spacing="1.2" filter="url(#tshadow)">TIME</text><text data-bind="time" x="303" y="496" font-size="27" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">00:00</text></svg></div><div class="el panel" style="--x:24;--y:548;--w:382;--h:266" ><svg class="" viewBox="24 548 382 266" aria-hidden="true"><g><clipPath id="c4"><rect x="24" y="548" width="382" height="266" rx="40"/></clipPath><rect x="24" y="548" width="382" height="266" rx="40" fill="url(#pBody)"/><g clip-path="url(#c4)"><rect x="24" y="548" width="382" height="266" rx="40" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="115.67999999999999" cy="553" rx="76.4" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="306.68" cy="809" rx="99.32000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="25.8" y="549.8" width="378.4" height="262.4" rx="38.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="32" y="556" width="366" height="250" rx="32" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el ov" style="--x:24;--y:548;--w:382;--h:266" ><svg class="" viewBox="24 548 382 266" aria-hidden="true"><text x="52" y="594" font-size="17" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">Quick speed</text><text x="380" y="594" font-size="14" font-weight="600" fill="#fff" text-anchor="end" opacity="0.85" letter-spacing="0" filter="url(#tshadow)">km/h</text></svg></div><button type="button" class="el b ctrl preset" style="--x:52;--y:614;--w:80;--h:80" aria-label="1.0 kilometres per hour" data-act="preset" data-speed="1"><svg viewBox="52 614 80 80" aria-hidden="true"><g class="k-pale"><g><rect x="52" y="614" width="80" height="80" rx="24" fill="url(#gPale)"/><rect x="52" y="614" width="80" height="80" rx="24" fill="url(#gGlowPale)"/><rect x="52" y="614" width="80" height="80" rx="24" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="63.2" y="618.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="58.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="126.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="92.0" cy="686.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="53.2" y="615.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="92.0" y="664.4" font-size="22" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">1.0</text></g><g class="k-dark"><g><rect x="52" y="614" width="80" height="80" rx="24" fill="url(#gDark)"/><rect x="52" y="614" width="80" height="80" rx="24" fill="url(#gGlowDark)"/><rect x="52" y="614" width="80" height="80" rx="24" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="63.2" y="618.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="58.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="126.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="92.0" cy="686.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="53.2" y="615.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="92.0" y="664.4" font-size="22" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">1.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:179;--y:614;--w:80;--h:80" aria-label="2.0 kilometres per hour" data-act="preset" data-speed="2"><svg viewBox="179 614 80 80" aria-hidden="true"><g class="k-pale"><g><rect x="179" y="614" width="80" height="80" rx="24" fill="url(#gPale)"/><rect x="179" y="614" width="80" height="80" rx="24" fill="url(#gGlowPale)"/><rect x="179" y="614" width="80" height="80" rx="24" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="190.2" y="618.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="185.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="253.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="219.0" cy="686.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="180.2" y="615.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="219.0" y="664.4" font-size="22" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">2.0</text></g><g class="k-dark"><g><rect x="179" y="614" width="80" height="80" rx="24" fill="url(#gDark)"/><rect x="179" y="614" width="80" height="80" rx="24" fill="url(#gGlowDark)"/><rect x="179" y="614" width="80" height="80" rx="24" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="190.2" y="618.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="185.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="253.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="219.0" cy="686.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="180.2" y="615.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="219.0" y="664.4" font-size="22" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">2.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:306;--y:614;--w:80;--h:80" aria-label="3.0 kilometres per hour" data-act="preset" data-speed="3"><svg viewBox="306 614 80 80" aria-hidden="true"><g class="k-pale"><g><rect x="306" y="614" width="80" height="80" rx="24" fill="url(#gPale)"/><rect x="306" y="614" width="80" height="80" rx="24" fill="url(#gGlowPale)"/><rect x="306" y="614" width="80" height="80" rx="24" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="317.2" y="618.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="312.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="380.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="346.0" cy="686.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="307.2" y="615.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="346.0" y="664.4" font-size="22" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">3.0</text></g><g class="k-dark"><g><rect x="306" y="614" width="80" height="80" rx="24" fill="url(#gDark)"/><rect x="306" y="614" width="80" height="80" rx="24" fill="url(#gGlowDark)"/><rect x="306" y="614" width="80" height="80" rx="24" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="317.2" y="618.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="312.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="380.0" cy="654.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="346.0" cy="686.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="307.2" y="615.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="346.0" y="664.4" font-size="22" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">3.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:52;--y:712;--w:80;--h:80" aria-label="4.0 kilometres per hour" data-act="preset" data-speed="4"><svg viewBox="52 712 80 80" aria-hidden="true"><g class="k-pale"><g><rect x="52" y="712" width="80" height="80" rx="24" fill="url(#gPale)"/><rect x="52" y="712" width="80" height="80" rx="24" fill="url(#gGlowPale)"/><rect x="52" y="712" width="80" height="80" rx="24" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="63.2" y="716.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="58.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="126.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="92.0" cy="784.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="53.2" y="713.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="92.0" y="762.4" font-size="22" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">4.0</text></g><g class="k-dark"><g><rect x="52" y="712" width="80" height="80" rx="24" fill="url(#gDark)"/><rect x="52" y="712" width="80" height="80" rx="24" fill="url(#gGlowDark)"/><rect x="52" y="712" width="80" height="80" rx="24" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="63.2" y="716.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="58.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="126.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="92.0" cy="784.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="53.2" y="713.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="92.0" y="762.4" font-size="22" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">4.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:179;--y:712;--w:80;--h:80" aria-label="5.0 kilometres per hour" data-act="preset" data-speed="5"><svg viewBox="179 712 80 80" aria-hidden="true"><g class="k-pale"><g><rect x="179" y="712" width="80" height="80" rx="24" fill="url(#gPale)"/><rect x="179" y="712" width="80" height="80" rx="24" fill="url(#gGlowPale)"/><rect x="179" y="712" width="80" height="80" rx="24" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="190.2" y="716.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="185.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="253.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="219.0" cy="784.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="180.2" y="713.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="219.0" y="762.4" font-size="22" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">5.0</text></g><g class="k-dark"><g><rect x="179" y="712" width="80" height="80" rx="24" fill="url(#gDark)"/><rect x="179" y="712" width="80" height="80" rx="24" fill="url(#gGlowDark)"/><rect x="179" y="712" width="80" height="80" rx="24" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="190.2" y="716.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="185.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="253.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="219.0" cy="784.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="180.2" y="713.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="219.0" y="762.4" font-size="22" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">5.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:306;--y:712;--w:80;--h:80" aria-label="6.0 kilometres per hour" data-act="preset" data-speed="6"><svg viewBox="306 712 80 80" aria-hidden="true"><g class="k-pale"><g><rect x="306" y="712" width="80" height="80" rx="24" fill="url(#gPale)"/><rect x="306" y="712" width="80" height="80" rx="24" fill="url(#gGlowPale)"/><rect x="306" y="712" width="80" height="80" rx="24" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="317.2" y="716.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="312.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="380.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="346.0" cy="784.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="307.2" y="713.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="346.0" y="762.4" font-size="22" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">6.0</text></g><g class="k-dark"><g><rect x="306" y="712" width="80" height="80" rx="24" fill="url(#gDark)"/><rect x="306" y="712" width="80" height="80" rx="24" fill="url(#gGlowDark)"/><rect x="306" y="712" width="80" height="80" rx="24" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="317.2" y="716.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="312.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="380.0" cy="752.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="346.0" cy="784.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="307.2" y="713.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="346.0" y="762.4" font-size="22" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">6.0</text></g></svg></button><button type="button" class="el b ctrl" style="--x:77;--y:834;--w:72;--h:72" aria-label="Slower" data-act="slower"><svg viewBox="77 834 72 72" aria-hidden="true"><g class="k"><g><rect x="77" y="834" width="72" height="72" rx="22" fill="url(#gPale)"/><rect x="77" y="834" width="72" height="72" rx="22" fill="url(#gGlowPale)"/><rect x="77" y="834" width="72" height="72" rx="22" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="87.08" y="838.32" width="51.839999999999996" height="21.599999999999998" rx="15.399999999999999" fill="url(#gloss)" opacity="0.85"/><ellipse cx="82.4" cy="870.0" rx="1.44" ry="12.24" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="143.60000000000002" cy="870.0" rx="1.44" ry="12.24" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="113.0" cy="899.16" rx="10.080000000000002" ry="1.2959999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="78.2" y="835.2" width="69.6" height="69.6" rx="20.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(98.0,855.0) scale(1.25)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" stroke="#0f3d22" stroke-width="2.6"/></g></g></svg></button><button type="button" class="el b ctrl play" style="--x:175;--y:830;--w:80;--h:80" aria-label="Start or pause" data-act="toggle"><svg viewBox="175 830 80 80" aria-hidden="true"><g class="k"><g><rect x="175" y="830" width="80" height="80" rx="24" fill="url(#gDark)"/><rect x="175" y="830" width="80" height="80" rx="24" fill="url(#gGlowDark)"/><rect x="175" y="830" width="80" height="80" rx="24" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="186.2" y="834.8" width="57.599999999999994" height="24.0" rx="16.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="181.0" cy="870.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="249.0" cy="870.0" rx="1.6" ry="13.600000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="215.0" cy="902.4" rx="11.200000000000001" ry="1.44" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="176.2" y="831.2" width="77.6" height="77.6" rx="22.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g class="ico-play"><g transform="translate(198.0,853.0) scale(1.4166666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5z" fill="#eaffc4" stroke="#eaffc4" stroke-width="1.6"/></g></g><g class="ico-pause"><g transform="translate(198.0,853.0) scale(1.4166666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="5.5" width="3.8" height="13" rx="1.4" fill="#eaffc4" stroke="none"/><rect x="13.7" y="5.5" width="3.8" height="13" rx="1.4" fill="#eaffc4" stroke="none"/></g></g></g></svg></button><button type="button" class="el b ctrl" style="--x:281;--y:834;--w:72;--h:72" aria-label="Faster" data-act="faster"><svg viewBox="281 834 72 72" aria-hidden="true"><g class="k"><g><rect x="281" y="834" width="72" height="72" rx="22" fill="url(#gPale)"/><rect x="281" y="834" width="72" height="72" rx="22" fill="url(#gGlowPale)"/><rect x="281" y="834" width="72" height="72" rx="22" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="291.08" y="838.32" width="51.839999999999996" height="21.599999999999998" rx="15.399999999999999" fill="url(#gloss)" opacity="0.85"/><ellipse cx="286.4" cy="870.0" rx="1.44" ry="12.24" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="347.6" cy="870.0" rx="1.44" ry="12.24" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="317.0" cy="899.16" rx="10.080000000000002" ry="1.2959999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="282.2" y="835.2" width="69.6" height="69.6" rx="20.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(302.0,855.0) scale(1.25)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" stroke="#0f3d22" stroke-width="2.6"/></g></g></svg></button><input class="el speed-input" style="--x:140;--y:180;--w:150;--h:100;--fs:84" type="number" step="0.1" inputmode="decimal" aria-label="Speed in km/h" hidden disabled /></div>
+    </section>
+    <section class="stage stage-d" aria-label="Treadmill controls">
+      <div class="canvas"><header class="el head" style="--x:0;--y:0;--w:1440;--h:130" ><svg class="" viewBox="0 0 1440 130" aria-hidden="true"><g><rect x="48" y="36" width="64" height="64" rx="20" fill="url(#gDark)"/><rect x="48" y="36" width="64" height="64" rx="20" fill="url(#gGlowDark)"/><rect x="48" y="36" width="64" height="64" rx="20" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="56.96" y="39.84" width="46.08" height="19.2" rx="14.0" fill="url(#gloss)" opacity="0.6"/><ellipse cx="52.8" cy="68.0" rx="1.28" ry="10.88" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="107.2" cy="68.0" rx="1.28" ry="10.88" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="80.0" cy="93.92" rx="8.96" ry="1.152" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="49.2" y="37.2" width="61.6" height="61.6" rx="18.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(62.0,50.0) scale(1.5)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6l6 6-6 6" opacity=".4" stroke="#b6f27a" stroke-width="2.6"/><path d="M10 6l6 6-6 6" opacity=".7" stroke="#b6f27a" stroke-width="2.6"/><path d="M15 6l6 6-6 6" stroke="#b6f27a" stroke-width="2.6"/></g><text x="132" y="66" font-size="34" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">Treadmill</text><circle class="halo" cx="139" cy="92" r="9" fill="#c9f27a" fill-opacity="0"/><circle class="sdot" cx="139" cy="92" r="6"/><text class="status" data-max="1000" x="154" y="98" font-size="17" font-weight="500" fill="#fff" text-anchor="start" opacity="0.92" letter-spacing="0" filter="url(#tshadow)">Not connected</text></svg></header><button type="button" class="el b conn" style="--x:1244;--y:38;--w:148;--h:56" aria-label="Connect to treadmill" data-act="connect"><svg viewBox="1244 38 148 56" aria-hidden="true"><g class="k"><g><rect x="1244" y="38" width="148" height="56" rx="20" fill="url(#gPale)"/><rect x="1244" y="38" width="148" height="56" rx="20" fill="url(#gGlowPale)"/><rect x="1244" y="38" width="148" height="56" rx="20" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="1264.72" y="41.36" width="106.56" height="16.8" rx="14.0" fill="url(#gloss)" opacity="0.85"/><ellipse cx="1255.1" cy="66.0" rx="2.96" ry="9.520000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1380.9" cy="66.0" rx="2.96" ry="9.520000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1318.0" cy="88.68" rx="20.720000000000002" ry="1.008" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="1245.2" y="39.2" width="145.6" height="53.6" rx="18.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text data-bind="connectLabel" x="1318" y="74" font-size="19" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">Connect</text></g></svg></button><div class="el panel" style="--x:48;--y:130;--w:860;--h:350" ><svg class="" viewBox="48 130 860 350" aria-hidden="true"><g><clipPath id="c5"><rect x="48" y="130" width="860" height="350" rx="48"/></clipPath><rect x="48" y="130" width="860" height="350" rx="48" fill="url(#pBody)"/><g clip-path="url(#c5)"><rect x="48" y="130" width="860" height="350" rx="48" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="254.4" cy="135" rx="172.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="684.4" cy="475" rx="223.6" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="49.8" y="131.8" width="856.4" height="346.4" rx="46.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="56" y="138" width="844" height="334" rx="40" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el wheel" style="--x:48;--y:130;--w:860;--h:350" data-cx="478" data-cy="300" data-r="125"><svg class="" viewBox="48 130 860 350" aria-hidden="true"><defs><linearGradient id="progd" gradientUnits="userSpaceOnUse" x1="389.6" y1="388.4" x2="478" y2="175"><stop offset="0" stop-color="#1d7a3a"/><stop offset="1" stop-color="#c4f560"/></linearGradient></defs><path d="M389.6 388.4A125 125 0 1 1 566.4 388.4" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="22" stroke-linecap="round"/><path class="w-arc" d="" fill="none" stroke="url(#progd)" stroke-width="22" stroke-linecap="round"/><circle class="w-ksh" cx="389.6" cy="390.4" r="23" fill="#0b3a1c" fill-opacity=".3" filter="url(#b2)"/><circle class="w-knob" cx="389.6" cy="388.4" r="21" fill="url(#gWhite)" stroke="#2f8a3f" stroke-width="5.9"/><text x="389.6116523516816" y="424.3883476483185" font-size="15" font-weight="600" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0">0</text><text class="w-max" x="566.3883476483185" y="424.3883476483185" font-size="15" font-weight="600" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0">12</text><text x="478" y="225.6" font-size="16" font-weight="700" fill="#fff" text-anchor="middle" opacity="0.85" letter-spacing="2" filter="url(#tshadow)">SPEED</text><text class="num" data-bind="speed" data-act="editspeed" x="478" y="338.4" font-size="120" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">0.0</text><text x="478" y="374.4" font-size="20" font-weight="600" fill="#0f3d22" text-anchor="middle" opacity="0.85" letter-spacing="0">km/h</text></svg></div><div class="el ov" style="--x:48;--y:130;--w:860;--h:350" ><svg class="" viewBox="48 130 860 350" aria-hidden="true"><text data-bind="caption" x="478" y="462" font-size="17" font-weight="500" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0" filter="url(#tshadow)">Connect to a treadmill to start</text></svg></div><div class="el panel" style="--x:932;--y:130;--w:460;--h:160" ><svg class="" viewBox="932 130 460 160" aria-hidden="true"><g><clipPath id="c6"><rect x="932" y="130" width="460" height="160" rx="44"/></clipPath><rect x="932" y="130" width="460" height="160" rx="44" fill="url(#pBody)"/><g clip-path="url(#c6)"><rect x="932" y="130" width="460" height="160" rx="44" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="1042.4" cy="135" rx="92.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="1272.4" cy="285" rx="119.60000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="933.8" y="131.8" width="456.4" height="156.4" rx="42.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="940" y="138" width="444" height="144" rx="36" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el b static" style="--x:972;--y:166;--w:88;--h:88" ><svg class="" viewBox="972 166 88 88" aria-hidden="true"><g><rect x="972" y="166" width="88" height="88" rx="26" fill="url(#gPale)"/><rect x="972" y="166" width="88" height="88" rx="26" fill="url(#gGlowPale)"/><rect x="972" y="166" width="88" height="88" rx="26" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="984.32" y="171.28" width="63.36" height="26.4" rx="18.2" fill="url(#gloss)" opacity="0.85"/><ellipse cx="978.6" cy="210.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1053.4" cy="210.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1016.0" cy="245.64" rx="12.32" ry="1.5839999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="973.2" y="167.2" width="85.6" height="85.6" rx="24.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(996.0,190.0) scale(1.6666666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 5h11l-2.5 3.6L17 12H6" stroke="#0f3d22" stroke-width="2.2"/></g></svg></div><div class="el ov" style="--x:932;--y:130;--w:460;--h:160" ><svg class="" viewBox="932 130 460 160" aria-hidden="true"><text x="1092" y="204" font-size="15" font-weight="700" fill="#fff" text-anchor="start" opacity="0.85" letter-spacing="1.8" filter="url(#tshadow)">DISTANCE</text><text x="1092" y="252" font-size="48" font-weight="700" fill="#fff" filter="url(#tshadow)"><tspan data-bind="distance">0.00</tspan> km</text></svg></div><div class="el panel" style="--x:932;--y:320;--w:460;--h:160" ><svg class="" viewBox="932 320 460 160" aria-hidden="true"><g><clipPath id="c7"><rect x="932" y="320" width="460" height="160" rx="44"/></clipPath><rect x="932" y="320" width="460" height="160" rx="44" fill="url(#pBody)"/><g clip-path="url(#c7)"><rect x="932" y="320" width="460" height="160" rx="44" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="1042.4" cy="325" rx="92.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="1272.4" cy="475" rx="119.60000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="933.8" y="321.8" width="456.4" height="156.4" rx="42.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="940" y="328" width="444" height="144" rx="36" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el b static" style="--x:972;--y:356;--w:88;--h:88" ><svg class="" viewBox="972 356 88 88" aria-hidden="true"><g><rect x="972" y="356" width="88" height="88" rx="26" fill="url(#gPale)"/><rect x="972" y="356" width="88" height="88" rx="26" fill="url(#gGlowPale)"/><rect x="972" y="356" width="88" height="88" rx="26" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="984.32" y="361.28" width="63.36" height="26.4" rx="18.2" fill="url(#gloss)" opacity="0.85"/><ellipse cx="978.6" cy="400.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1053.4" cy="400.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1016.0" cy="435.64" rx="12.32" ry="1.5839999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="973.2" y="357.2" width="85.6" height="85.6" rx="24.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(996.0,380.0) scale(1.6666666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5" stroke="#0f3d22" stroke-width="2.2"/><path d="M12 7v5.2l3.2 2" stroke="#0f3d22" stroke-width="2.2"/></g></svg></div><div class="el ov" style="--x:932;--y:320;--w:460;--h:160" ><svg class="" viewBox="932 320 460 160" aria-hidden="true"><text x="1092" y="394" font-size="15" font-weight="700" fill="#fff" text-anchor="start" opacity="0.85" letter-spacing="1.8" filter="url(#tshadow)">TIME</text><text x="1092" y="442" font-size="48" font-weight="700" fill="#fff" filter="url(#tshadow)"><tspan data-bind="time">00:00</tspan></text></svg></div><div class="el panel" style="--x:48;--y:510;--w:860;--h:250" ><svg class="" viewBox="48 510 860 250" aria-hidden="true"><g><clipPath id="c8"><rect x="48" y="510" width="860" height="250" rx="48"/></clipPath><rect x="48" y="510" width="860" height="250" rx="48" fill="url(#pBody)"/><g clip-path="url(#c8)"><rect x="48" y="510" width="860" height="250" rx="48" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="254.4" cy="515" rx="172.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="684.4" cy="755" rx="223.6" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="49.8" y="511.8" width="856.4" height="246.4" rx="46.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="56" y="518" width="844" height="234" rx="40" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><div class="el ov" style="--x:48;--y:510;--w:860;--h:250" ><svg class="" viewBox="48 510 860 250" aria-hidden="true"><text x="88" y="566" font-size="20" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">Quick speed</text><text x="868" y="566" font-size="16" font-weight="600" fill="#fff" text-anchor="end" opacity="0.85" letter-spacing="0" filter="url(#tshadow)">km/h</text></svg></div><button type="button" class="el b ctrl preset" style="--x:88;--y:594;--w:96;--h:96" aria-label="1.0 kilometres per hour" data-act="preset" data-speed="1"><svg viewBox="88 594 96 96" aria-hidden="true"><g class="k-pale"><g><rect x="88" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="88" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="88" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="101.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="95.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="176.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="136.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="89.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="136.0" y="654.48" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">1.0</text></g><g class="k-dark"><g><rect x="88" y="594" width="96" height="96" rx="29" fill="url(#gDark)"/><rect x="88" y="594" width="96" height="96" rx="29" fill="url(#gGlowDark)"/><rect x="88" y="594" width="96" height="96" rx="29" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="101.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="95.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="176.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="136.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="89.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="136.0" y="654.48" font-size="26" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">1.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:221;--y:594;--w:96;--h:96" aria-label="2.0 kilometres per hour" data-act="preset" data-speed="2"><svg viewBox="221 594 96 96" aria-hidden="true"><g class="k-pale"><g><rect x="221" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="221" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="221" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="234.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="228.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="309.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="269.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="222.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="269.0" y="654.48" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">2.0</text></g><g class="k-dark"><g><rect x="221" y="594" width="96" height="96" rx="29" fill="url(#gDark)"/><rect x="221" y="594" width="96" height="96" rx="29" fill="url(#gGlowDark)"/><rect x="221" y="594" width="96" height="96" rx="29" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="234.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="228.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="309.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="269.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="222.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="269.0" y="654.48" font-size="26" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">2.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:354;--y:594;--w:96;--h:96" aria-label="3.0 kilometres per hour" data-act="preset" data-speed="3"><svg viewBox="354 594 96 96" aria-hidden="true"><g class="k-pale"><g><rect x="354" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="354" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="354" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="367.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="361.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="442.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="402.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="355.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="402.0" y="654.48" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">3.0</text></g><g class="k-dark"><g><rect x="354" y="594" width="96" height="96" rx="29" fill="url(#gDark)"/><rect x="354" y="594" width="96" height="96" rx="29" fill="url(#gGlowDark)"/><rect x="354" y="594" width="96" height="96" rx="29" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="367.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="361.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="442.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="402.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="355.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="402.0" y="654.48" font-size="26" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">3.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:487;--y:594;--w:96;--h:96" aria-label="4.0 kilometres per hour" data-act="preset" data-speed="4"><svg viewBox="487 594 96 96" aria-hidden="true"><g class="k-pale"><g><rect x="487" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="487" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="487" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="500.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="494.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="575.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="535.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="488.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="535.0" y="654.48" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">4.0</text></g><g class="k-dark"><g><rect x="487" y="594" width="96" height="96" rx="29" fill="url(#gDark)"/><rect x="487" y="594" width="96" height="96" rx="29" fill="url(#gGlowDark)"/><rect x="487" y="594" width="96" height="96" rx="29" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="500.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="494.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="575.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="535.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="488.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="535.0" y="654.48" font-size="26" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">4.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:620;--y:594;--w:96;--h:96" aria-label="5.0 kilometres per hour" data-act="preset" data-speed="5"><svg viewBox="620 594 96 96" aria-hidden="true"><g class="k-pale"><g><rect x="620" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="620" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="620" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="633.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="627.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="708.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="668.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="621.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="668.0" y="654.48" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">5.0</text></g><g class="k-dark"><g><rect x="620" y="594" width="96" height="96" rx="29" fill="url(#gDark)"/><rect x="620" y="594" width="96" height="96" rx="29" fill="url(#gGlowDark)"/><rect x="620" y="594" width="96" height="96" rx="29" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="633.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="627.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="708.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="668.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="621.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="668.0" y="654.48" font-size="26" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">5.0</text></g></svg></button><button type="button" class="el b ctrl preset" style="--x:753;--y:594;--w:96;--h:96" aria-label="6.0 kilometres per hour" data-act="preset" data-speed="6"><svg viewBox="753 594 96 96" aria-hidden="true"><g class="k-pale"><g><rect x="753" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="753" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="753" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="766.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="760.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="841.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="801.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="754.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="801.0" y="654.48" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">6.0</text></g><g class="k-dark"><g><rect x="753" y="594" width="96" height="96" rx="29" fill="url(#gDark)"/><rect x="753" y="594" width="96" height="96" rx="29" fill="url(#gGlowDark)"/><rect x="753" y="594" width="96" height="96" rx="29" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="766.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="760.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="841.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="801.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="754.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><text x="801.0" y="654.48" font-size="26" font-weight="700" fill="#eaffc4" text-anchor="middle" opacity="1" letter-spacing="0">6.0</text></g></svg></button><div class="el panel" style="--x:932;--y:510;--w:460;--h:250" ><svg class="" viewBox="932 510 460 250" aria-hidden="true"><g><clipPath id="c9"><rect x="932" y="510" width="460" height="250" rx="48"/></clipPath><rect x="932" y="510" width="460" height="250" rx="48" fill="url(#pBody)"/><g clip-path="url(#c9)"><rect x="932" y="510" width="460" height="250" rx="48" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/><ellipse cx="1042.4" cy="515" rx="92.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/><ellipse cx="1272.4" cy="755" rx="119.60000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/></g><rect x="933.8" y="511.8" width="456.4" height="246.4" rx="46.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/><rect x="940" y="518" width="444" height="234" rx="40" fill="none" stroke="url(#pLine)" stroke-width="1.8"/></g></svg></div><button type="button" class="el b ctrl" style="--x:980;--y:587;--w:96;--h:96" aria-label="Slower" data-act="slower"><svg viewBox="980 587 96 96" aria-hidden="true"><g class="k"><g><rect x="980" y="587" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="980" y="587" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="980" y="587" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="993.44" y="592.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="987.2" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1068.8" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1028.0" cy="673.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="981.2" y="588.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(1009.0,616.0) scale(1.5833333333333333)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" stroke="#0f3d22" stroke-width="2.6"/></g></g></svg></button><button type="button" class="el b ctrl play" style="--x:1106;--y:579;--w:112;--h:112" aria-label="Start or pause" data-act="toggle"><svg viewBox="1106 579 112 112" aria-hidden="true"><g class="k"><g><rect x="1106" y="579" width="112" height="112" rx="34" fill="url(#gDark)"/><rect x="1106" y="579" width="112" height="112" rx="34" fill="url(#gGlowDark)"/><rect x="1106" y="579" width="112" height="112" rx="34" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/><rect x="1121.68" y="585.72" width="80.64" height="33.6" rx="23.799999999999997" fill="url(#gloss)" opacity="0.6"/><ellipse cx="1114.4" cy="635.0" rx="2.24" ry="19.040000000000003" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1209.6" cy="635.0" rx="2.24" ry="19.040000000000003" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1162.0" cy="680.36" rx="15.680000000000001" ry="2.016" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="1107.2" y="580.2" width="109.6" height="109.6" rx="32.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g class="ico-play"><g transform="translate(1139.0,612.0) scale(1.9166666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5z" fill="#eaffc4" stroke="#eaffc4" stroke-width="1.6"/></g></g><g class="ico-pause"><g transform="translate(1139.0,612.0) scale(1.9166666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="5.5" width="3.8" height="13" rx="1.4" fill="#eaffc4" stroke="none"/><rect x="13.7" y="5.5" width="3.8" height="13" rx="1.4" fill="#eaffc4" stroke="none"/></g></g></g></svg></button><button type="button" class="el b ctrl" style="--x:1248;--y:587;--w:96;--h:96" aria-label="Faster" data-act="faster"><svg viewBox="1248 587 96 96" aria-hidden="true"><g class="k"><g><rect x="1248" y="587" width="96" height="96" rx="29" fill="url(#gPale)"/><rect x="1248" y="587" width="96" height="96" rx="29" fill="url(#gGlowPale)"/><rect x="1248" y="587" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/><rect x="1261.44" y="592.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/><ellipse cx="1255.2" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1336.8" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/><ellipse cx="1296.0" cy="673.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/><rect x="1249.2" y="588.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/></g><g transform="translate(1277.0,616.0) scale(1.5833333333333333)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" stroke="#0f3d22" stroke-width="2.6"/></g></g></svg></button><input class="el speed-input" style="--x:343;--y:210;--w:270;--h:150;--fs:120" type="number" step="0.1" inputmode="decimal" aria-label="Speed in km/h" hidden disabled /></div>
+    </section>
   </main>
 
-<script>
-"use strict";
+  <details class="log">
+    <summary>Log</summary>
+    <pre id="log"></pre>
+  </details>
 
-const UUID = {
-  FTMS_SERVICE:      0x1826,
-  FTMS_FEATURE:      0x2acc,
-  TREADMILL_DATA:    0x2acd,
-  SPEED_RANGE:       0x2ad4,
-  CONTROL_POINT:     0x2ad9,
-};
-
-// FTMS Control Point opcodes
-const OP = { REQUEST_CONTROL: 0x00, RESET: 0x01, SET_SPEED: 0x02, START: 0x07, STOP_PAUSE: 0x08, RESPONSE: 0x80 };
-const RESULT = { 1: "Success", 2: "Op code not supported", 3: "Invalid parameter", 4: "Operation failed", 5: "Control not permitted" };
-
-/* FTMS Treadmill Data (0x2ACD) parser. Little-endian. 16-bit Flags, then fields in fixed order,
-   each present only if its flag bit is set (bit 0 is INVERTED: 0 => speed present). */
-function parseTreadmillData(dv) {
-  let o = 0;
-  const u8  = () => { const v = dv.getUint8(o);          o += 1; return v; };
-  const u16 = () => { const v = dv.getUint16(o, true);   o += 2; return v; };
-  const s16 = () => { const v = dv.getInt16(o, true);    o += 2; return v; };
-  const u24 = () => { const v = dv.getUint16(o, true) | (dv.getUint8(o + 2) << 16); o += 3; return v; };
-
-  const flags = u16();
-  const has = (bit) => (flags & (1 << bit)) !== 0;
-  const r = {};
-
-  if (!has(0)) r.speedKmh = u16() * 0.01;
-  if (has(1))  r.avgSpeedKmh = u16() * 0.01;
-  if (has(2))  r.distanceM = u24();
-  if (has(3)) {
-    r.inclinePct = s16() * 0.1;
-    r.rampAngleDeg = s16() * 0.1;
-  }
-  if (has(4)) {
-    r.elevGainPosM = u16() * 0.1;
-    r.elevGainNegM = u16() * 0.1;
-  }
-  if (has(5))  r.paceMinPerKm = u8() * 0.1;
-  if (has(6))  r.avgPaceMinPerKm = u8() * 0.1;
-  if (has(7)) {
-    const total = u16(), perHour = u16(), perMin = u8();
-    if (total !== 0xffff)   r.energyKcal = total;
-    if (perHour !== 0xffff) r.energyPerHour = perHour;
-    if (perMin !== 0xff)    r.energyPerMin = perMin;
-  }
-  if (has(8))  r.heartRate = u8();
-  if (has(9))  r.metabolicEq = u8() * 0.1;
-  if (has(10)) r.elapsedS = u16();
-  if (has(11)) r.remainingS = u16();
-  if (has(12)) { r.forceOnBeltN = s16(); r.powerW = s16(); }
-  return r;
-}
-
-const state = {
-  device: null,
-  userDisconnected: false,
-  reconnecting: false,
-  controlPoint: null,
-  hasControl: false,
-  pending: null,
-  queue: Promise.resolve(),
-  speedMin: 0, speedMax: 6.0, speedStep: 0.1,
-  targetKmh: null,
-  speed: 0,
-  deviceDistanceM: null, deviceElapsedS: null,
-  localDistanceKm: 0, localSeconds: 0,
-  lastTick: performance.now(),
-};
-
-const $ = (id) => document.getElementById(id);
-const el = {
-  status: $("status"), error: $("error"), connect: $("connectBtn"), log: $("log"),
-  speed: $("speed"), distance: $("distance"), time: $("time"),
-  custom: $("customSpeed"),
-  statusDot: $("statusDot"), connectLabel: $("connectLabel"),
-  maxLabel: $("maxLabel"), arc: $("arc"), arcGlow: $("arcGlow"), knob: $("knob"),
-  slower: $("slower"), faster: $("faster"), toggle: $("toggleBtn"), stop: $("stopBtn"),
-};
-
-function log(msg) {
-  el.log.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
-  el.log.scrollTop = el.log.scrollHeight;
-  console.log(msg);
-}
-function setStatus(msg) {
-  el.status.textContent = msg;
-  el.statusDot.classList.toggle("on", /^Connected/.test(msg));
-}
-function showError(msg) { el.error.textContent = msg; el.error.classList.remove("hidden"); log("ERROR: " + msg); }
-function clearError() { el.error.classList.add("hidden"); }
-function setControlsEnabled(on) {
-  document.querySelectorAll(".ctrl").forEach((b) => (b.disabled = !on));
-}
-
-/* Translate Web Bluetooth errors into something a human can act on */
-function explainError(e) {
-  switch (e && e.name) {
-    case "NotFoundError":
-      return /cancel/i.test(e.message) ? "Device selection was cancelled."
-        : "No matching device found. Make sure the treadmill is on, awake, and not connected to another app/phone.";
-    case "SecurityError":
-      return "Bluetooth blocked: the page must be on HTTPS or localhost, and Bluetooth permission must be allowed.";
-    case "NotAllowedError":
-      return "Bluetooth permission denied. Allow it in the browser/site settings and make sure Bluetooth is on.";
-    case "NetworkError":
-      return "Connection to the treadmill failed or dropped. Move closer and try again.";
-    case "NotSupportedError":
-      return "The treadmill doesn't support this operation.";
-    case "InvalidStateError":
-      return "Bluetooth is busy or the device is in an invalid state. Try reconnecting.";
-    default:
-      return (e && e.message) || String(e);
-  }
-}
-
-const fmtTime = (s) => {
-  s = Math.floor(s);
-  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
-  const mm = String(m).padStart(2, "0"), ss = String(sec).padStart(2, "0");
-  return h ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
-};
-
-function render() {
-  el.speed.textContent = state.speed.toFixed(1);
-  const km = state.deviceDistanceM != null ? state.deviceDistanceM / 1000 : state.localDistanceKm;
-  el.distance.textContent = km.toFixed(2);
-  el.time.textContent = fmtTime(state.deviceElapsedS != null ? state.deviceElapsedS : state.localSeconds);
-
-  // Gauge: 270 degree arc from bottom-left (135 deg) round the top to bottom-right
-  const max = state.speedMax > 0 ? state.speedMax : 12;
-  const f = Math.min(1, Math.max(0, state.speed / max));
-  const a = (135 + 270 * f) * Math.PI / 180;
-  const ex = (430 + 175 * Math.cos(a)).toFixed(1), ey = (270 + 175 * Math.sin(a)).toFixed(1);
-  el.knob.setAttribute("cx", ex); el.knob.setAttribute("cy", ey);
-  const d = f > 0.002 ? `M306.3 393.7 A175 175 0 ${f > 2 / 3 ? 1 : 0} 1 ${ex} ${ey}` : "";
-  el.arc.setAttribute("d", d); el.arcGlow.setAttribute("d", d);
-  el.maxLabel.textContent = String(Math.round(max * 10) / 10);
-
-  const running = state.speed > 0.05;
-  el.toggle.classList.toggle("running", running);
-  const shown = state.targetKmh != null ? state.targetKmh : state.speed;
-  document.querySelectorAll(".preset").forEach((b) =>
-    b.classList.toggle("is-active", Math.abs(parseFloat(b.dataset.speed) - shown) < 0.05));
-}
-
-/* Local fallback integration (used if the treadmill omits distance / elapsed time) */
-setInterval(() => {
-  const now = performance.now();
-  const dt = (now - state.lastTick) / 1000;
-  state.lastTick = now;
-  if (state.device && state.device.gatt.connected && state.speed > 0) {
-    state.localSeconds += dt;
-    state.localDistanceKm += (state.speed * dt) / 3600;
-  }
-  render();
-}, 250);
-
-function onTreadmillData(ev) {
-  let d;
-  try { d = parseTreadmillData(ev.target.value); }
-  catch (e) { log("Bad treadmill packet: " + e.message); return; }
-
-  if (d.speedKmh != null) {
-    state.speed = d.speedKmh;
-    if (state.targetKmh == null) state.targetKmh = Math.max(state.speedMin, Math.round(d.speedKmh * 10) / 10);
-  }
-  if (d.distanceM != null) state.deviceDistanceM = d.distanceM;
-  if (d.elapsedS != null)  state.deviceElapsedS = d.elapsedS;
-  render();
-}
-
-/* Control-point indications: [0x80, requestOpcode, resultCode, ...] */
-function onControlResponse(ev) {
-  const v = ev.target.value;
-  if (v.getUint8(0) !== OP.RESPONSE) return;
-  const opcode = v.getUint8(1), result = v.getUint8(2);
-  log(`CP response: op 0x${opcode.toString(16)} -> ${RESULT[result] || result}`);
-  const p = state.pending;
-  if (p && p.opcode === opcode) {
-    clearTimeout(p.timer);
-    state.pending = null;
-    result === 1 ? p.resolve() : p.reject(new Error(RESULT[result] || `Result ${result}`));
-  }
-}
-
-function sendControl(bytes) {
-  const run = () => new Promise((resolve, reject) => {
-    if (!state.controlPoint) return reject(new Error("Control point not available"));
-    const timer = setTimeout(() => { state.pending = null; reject(new Error("Treadmill did not respond")); }, 5000);
-    state.pending = { opcode: bytes[0], resolve, reject, timer };
-    state.controlPoint.writeValueWithResponse(new Uint8Array(bytes)).catch((e) => {
-      clearTimeout(timer); state.pending = null; reject(e);
-    });
-  });
-  state.queue = state.queue.then(run, run);
-  return state.queue;
-}
-
-async function safeControl(label, bytes) {
-  try { clearError(); await sendControl(bytes); }
-  catch (e) { showError(`${label} failed: ${explainError(e)}`); }
-}
-
-const setSpeedBytes = (kmh) => {
-  const raw = Math.round(kmh * 100);
-  return [OP.SET_SPEED, raw & 0xff, (raw >> 8) & 0xff];
-};
-
-async function setSpeed(kmh) {
-  if (!Number.isFinite(kmh)) return;
-  const next = Math.min(state.speedMax, Math.max(state.speedMin, Math.round(kmh * 10) / 10));
-  state.targetKmh = next;
-  render();
-  await safeControl("Set speed", setSpeedBytes(next));
-}
-
-const changeSpeed = (delta) => setSpeed((state.targetKmh != null ? state.targetKmh : state.speed) + delta);
-
-// Preset buttons and custom speed input
-document.querySelectorAll(".preset").forEach((b) => (b.onclick = () => setSpeed(parseFloat(b.dataset.speed))));
-// Tap the big number to type a speed
-el.speed.onclick = () => {
-  if (el.custom.disabled) return;
-  el.custom.min = state.speedMin; el.custom.max = state.speedMax;
-  el.custom.value = (state.targetKmh != null ? state.targetKmh : state.speed).toFixed(1);
-  el.custom.hidden = false; el.custom.focus(); el.custom.select();
-};
-const closeCustom = () => { el.custom.hidden = true; };
-el.custom.onblur = closeCustom;
-el.custom.onkeydown = (e) => {
-  if (e.key === "Escape") return closeCustom();
-  if (e.key !== "Enter") return;
-  const v = parseFloat(el.custom.value);
-  if (!Number.isFinite(v) || v < state.speedMin || v > state.speedMax) {
-    showError(`Enter a speed between ${state.speedMin.toFixed(1)} and ${state.speedMax.toFixed(1)} km/h.`);
-    return;
-  }
-  closeCustom();
-  setSpeed(v);
-};
-
-el.faster.onclick = () => changeSpeed(+state.speedStep);
-el.slower.onclick = () => changeSpeed(-state.speedStep);
-const doStart = async () => {
-  await safeControl("Start", [OP.START]);
-  if (state.targetKmh != null) await safeControl("Set speed", setSpeedBytes(state.targetKmh));
-};
-const doPause = async () => {
-  try {
-    clearError();
-    await sendControl([OP.STOP_PAUSE, 0x02]);
-    // Some treadmills ack pause with Success but keep running; verify the belt actually slowed
-    await new Promise((r) => setTimeout(r, 3000));
-    if (state.speed > 0.1) {
-      log("Pause acknowledged but belt still at " + state.speed.toFixed(1) + " km/h; setting speed to 0 instead");
-      await safeControl("Pause", setSpeedBytes(0));
-    }
-  } catch (e) {
-    // Many treadmills ignore or reject FTMS pause; drop the belt to 0 instead (target is kept so Start resumes)
-    log("Pause not accepted (" + explainError(e) + "); setting speed to 0 instead");
-    await safeControl("Pause", setSpeedBytes(0));
-  }
-};
-el.stop.onclick   = () => safeControl("Stop",  [OP.STOP_PAUSE, 0x01]);
-el.toggle.onclick = () => (state.speed > 0.05 ? doPause() : doStart());
-$("resetBtn").onclick = () => {
-  state.localSeconds = 0; state.localDistanceKm = 0;
-  state.deviceDistanceM = null; state.deviceElapsedS = null;
-  render();
-};
-
-async function setupGatt(server) {
-  let ftms = null;
-  try { ftms = await server.getPrimaryService(UUID.FTMS_SERVICE); } catch (_) { }
-
-  if (ftms) {
-    const data = await ftms.getCharacteristic(UUID.TREADMILL_DATA);
-    data.addEventListener("characteristicvaluechanged", onTreadmillData);
-    await data.startNotifications();
-    log("Subscribed to Treadmill Data");
-
-    try {
-      const rng = await (await ftms.getCharacteristic(UUID.SPEED_RANGE)).readValue();
-      state.speedMin  = rng.getUint16(0, true) * 0.01;
-      state.speedMax  = rng.getUint16(2, true) * 0.01;
-      state.speedStep = Math.max(0.1, rng.getUint16(4, true) * 0.01);
-      log(`Speed range ${state.speedMin}-${state.speedMax} km/h`);
-    } catch (_) { log("Speed range not readable; using defaults"); }
-
-    try {
-      const cp = await ftms.getCharacteristic(UUID.CONTROL_POINT);
-      cp.addEventListener("characteristicvaluechanged", onControlResponse);
-      await cp.startNotifications();
-      state.controlPoint = cp;
-      await sendControl([OP.REQUEST_CONTROL]);
-      state.hasControl = true;
-      setControlsEnabled(true);
-      log("Control granted");
-    } catch (e) {
-      state.hasControl = false;
-      setControlsEnabled(false);
-      log("Control unavailable: " + explainError(e));
-    }
-  }
-
-  if (!ftms) log("No FTMS service on this device (unsupported treadmill).");
-}
-
-async function connectToDevice(device) {
-  setStatus(`Connecting to ${device.name || "device"}…`);
-  const server = await device.gatt.connect();
-  await setupGatt(server);
-  setStatus(`Connected · ${device.name || "device"}`);
-  el.connectLabel.textContent = "Disconnect";
-}
-
-function resetUiDisconnected(msg) {
-  setStatus(msg);
-  setControlsEnabled(false);
-  el.connectLabel.textContent = "Connect";
-  state.speed = 0; state.hasControl = false; state.controlPoint = null;
-  render();
-}
-
-/* Auto-reconnect with exponential backoff (1,2,4,8,16 s) */
-async function reconnect() {
-  if (state.reconnecting) return;
-  state.reconnecting = true;
-  for (let attempt = 1; attempt <= 5 && !state.userDisconnected; attempt++) {
-    const wait = 1000 * 2 ** (attempt - 1);
-    setStatus(`Connection lost. Reconnecting (${attempt}/5) in ${wait / 1000}s…`);
-    await new Promise((r) => setTimeout(r, wait));
-    if (state.userDisconnected) break;
-    try {
-      await connectToDevice(state.device);
-      clearError();
-      state.reconnecting = false;
-      log("Reconnected");
-      return;
-    } catch (e) { log(`Reconnect ${attempt} failed: ${explainError(e)}`); }
-  }
-  state.reconnecting = false;
-  if (!state.userDisconnected) {
-    resetUiDisconnected("Disconnected");
-    showError("Could not reconnect automatically. Press Connect to try again.");
-  }
-}
-
-function onGattDisconnected() {
-  log("GATT disconnected");
-  if (state.pending) { clearTimeout(state.pending.timer); state.pending = null; }
-  setControlsEnabled(false);
-  state.speed = 0; render();
-  if (!state.userDisconnected) reconnect();
-  else resetUiDisconnected("Disconnected");
-}
-
-async function connect() {
-  clearError();
-  state.userDisconnected = false;
-  try {
-    // Show only devices advertising FTMS
-    const device = await navigator.bluetooth.requestDevice({
-      filters: [{ services: [UUID.FTMS_SERVICE] }],
-    });
-    if (state.device) state.device.removeEventListener("gattserverdisconnected", onGattDisconnected);
-    state.device = device;
-    device.addEventListener("gattserverdisconnected", onGattDisconnected);
-    state.lastTick = performance.now();
-    await connectToDevice(device);
-  } catch (e) {
-    const msg = explainError(e);
-    if (e.name === "NotFoundError" && /cancel/i.test(e.message)) { log(msg); setStatus("Not connected"); }
-    else { showError(msg); resetUiDisconnected("Not connected"); }
-  }
-}
-
-function disconnect() {
-  state.userDisconnected = true;
-  if (state.device && state.device.gatt.connected) state.device.gatt.disconnect();
-  else resetUiDisconnected("Disconnected");
-}
-
-el.connect.onclick = () => {
-  if (state.device && state.device.gatt.connected) disconnect(); else connect();
-};
-
-(function init() {
-  setControlsEnabled(false);
-  if (!window.isSecureContext) {
-    showError("Web Bluetooth needs a secure context. Open this page via https:// or http://localhost.");
-    el.connect.disabled = true;
-  } else if (!("bluetooth" in navigator)) {
-    showError("This browser doesn't support Web Bluetooth. Use Chrome or Edge on desktop/Android (iOS: the Bluefy browser).");
-    el.connect.disabled = true;
-  } else {
-    navigator.bluetooth.getAvailability?.().then((ok) => {
-      if (!ok) showError("No Bluetooth adapter available, or Bluetooth is turned off.");
-    }).catch(() => {});
-  }
-  render();
-})();
-</script>
+  <script src="app.js"></script>
 </body>
 </html>

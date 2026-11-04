@@ -1,0 +1,284 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="840" viewBox="0 0 1440 840">
+<title>Treadmill desktop - glass (idle)</title>
+<defs>
+<style>text{font-family:Inter,'SF Pro Display','Segoe UI',system-ui,sans-serif;}</style>
+<linearGradient id="bg" x1="0" y1="0" x2="0.55" y2="1">
+ <stop offset="0" stop-color="#2f6b48"/><stop offset=".45" stop-color="#6b9f4a"/><stop offset="1" stop-color="#c9d94a"/></linearGradient>
+<!-- glass panel: clear, slightly greyed body -->
+<linearGradient id="pBody" x1="0" y1="0" x2="1" y2="1">
+ <stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".45" stop-color="#e4efd6" stop-opacity=".13"/>
+ <stop offset=".8" stop-color="#eaffb0" stop-opacity=".10"/><stop offset="1" stop-color="#f4ffc8" stop-opacity=".34"/></linearGradient>
+<linearGradient id="pRim" x1="0" y1="0" x2="1" y2="1">
+ <stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#fff" stop-opacity=".5"/><stop offset=".55" stop-color="#fff" stop-opacity=".28"/>
+ <stop offset=".8" stop-color="#fff" stop-opacity=".7"/><stop offset="1" stop-color="#fff"/></linearGradient>
+<linearGradient id="pLine" x1="0" y1="0" x2="1" y2="1">
+ <stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".35" stop-color="#fff" stop-opacity=".3"/><stop offset=".65" stop-color="#fff" stop-opacity=".25"/>
+ <stop offset="1" stop-color="#fff" stop-opacity=".9"/></linearGradient>
+<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<!-- bubble buttons -->
+<radialGradient id="gPale" cx=".5" cy=".45" r=".62"><stop offset="0" stop-color="#f4ffd0" stop-opacity=".3"/><stop offset=".6" stop-color="#d6ef86" stop-opacity=".55"/><stop offset="1" stop-color="#f2ffc8" stop-opacity=".95"/></radialGradient>
+<radialGradient id="gWhite" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".98"/><stop offset="1" stop-color="#e6f2cc" stop-opacity=".96"/></radialGradient>
+<radialGradient id="gDark" cx=".5" cy=".38" r=".72"><stop offset="0" stop-color="#43a04a"/><stop offset=".55" stop-color="#1d7433"/><stop offset="1" stop-color="#0b4120"/></radialGradient>
+<radialGradient id="gGlowPale" cx=".65" cy=".92" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<radialGradient id="gGlowDark" cx=".5" cy="1" r=".75"><stop offset="0" stop-color="#c4f560" stop-opacity=".75"/><stop offset="1" stop-color="#c4f560" stop-opacity="0"/></radialGradient>
+<linearGradient id="gRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".42" stop-color="#fff" stop-opacity=".1"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity=".85"/></linearGradient>
+<linearGradient id="fillBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1d7a3a"/><stop offset="1" stop-color="#c4f560"/></linearGradient>
+<linearGradient id="fillTall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8ff9a" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity=".98"/></linearGradient>
+<linearGradient id="emptyTall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8a3f" stop-opacity=".95"/><stop offset="1" stop-color="#3f9a48" stop-opacity=".85"/></linearGradient>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#0b3a1c" flood-opacity=".28"/></filter>
+<filter id="bshadow" x="-40%" y="-40%" width="180%" height="190%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0a3519" flood-opacity=".32"/></filter>
+<filter id="tshadow" x="-10%" y="-20%" width="120%" height="150%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#0b3a1c" flood-opacity=".45"/></filter>
+<filter id="b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+<filter id="b6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.1"/></filter>
+<filter id="b60" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="50"/></filter>
+</defs>
+<rect width="1440" height="840" fill="url(#bg)"/>
+<circle cx="72" cy="17" r="380" fill="#22563a" opacity="0.65" filter="url(#b60)"/>
+<circle cx="720" cy="17" r="300" fill="#a9d38a" opacity="0.45" filter="url(#b60)"/>
+<circle cx="1180" cy="820" r="460" fill="#e8f27a" opacity="0.6" filter="url(#b60)"/>
+<circle cx="150" cy="740" r="300" fill="#7fb24a" opacity="0.5" filter="url(#b60)"/>
+<circle cx="201" cy="631" r="20" fill="#d3f08a" opacity="0.18" filter="url(#b2)"/>
+<circle cx="1273" cy="577" r="26" fill="#f3ff9a" opacity="0.16" filter="url(#b2)"/>
+<circle cx="1105" cy="784" r="28" fill="#f3ff9a" opacity="0.2" filter="url(#b2)"/>
+<circle cx="368" cy="793" r="18" fill="#f3ff9a" opacity="0.17" filter="url(#b2)"/>
+<circle cx="1273" cy="135" r="22" fill="#ffffff" opacity="0.18" filter="url(#b2)"/>
+<circle cx="100" cy="297" r="18" fill="#ffffff" opacity="0.14" filter="url(#b2)"/>
+<circle cx="1340" cy="433" r="20" fill="#d3f08a" opacity="0.16" filter="url(#b2)"/>
+<circle cx="636" cy="816" r="8" fill="#ffffff" opacity="0.5" filter="url(#b2)"/>
+<circle cx="268" cy="739" r="7" fill="#f0a0ea" opacity="0.55" filter="url(#b2)"/>
+<g>
+<rect x="48" y="36" width="64" height="64" rx="20" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="48" y="36" width="64" height="64" rx="20" fill="url(#gDark)"/>
+<rect x="48" y="36" width="64" height="64" rx="20" fill="url(#gGlowDark)"/>
+<rect x="48" y="36" width="64" height="64" rx="20" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="56.96" y="39.84" width="46.08" height="19.2" rx="14.0" fill="url(#gloss)" opacity="0.6"/>
+<ellipse cx="52.8" cy="68.0" rx="1.28" ry="10.88" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="107.2" cy="68.0" rx="1.28" ry="10.88" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="80.0" cy="93.92" rx="8.96" ry="1.152" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="49.2" y="37.2" width="61.6" height="61.6" rx="18.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<g transform="translate(62.0,50.0) scale(1.5)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6l6 6-6 6" opacity=".4" stroke="#b6f27a" stroke-width="2.6"/><path d="M10 6l6 6-6 6" opacity=".7" stroke="#b6f27a" stroke-width="2.6"/><path d="M15 6l6 6-6 6" stroke="#b6f27a" stroke-width="2.6"/></g>
+<text x="132" y="66" font-size="34" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">Treadmill</text>
+<circle cx="139" cy="92" r="6" fill="#fff" fill-opacity=".55"/>
+<text x="154" y="98" font-size="17" font-weight="500" fill="#fff" text-anchor="start" opacity="0.92" letter-spacing="0" filter="url(#tshadow)">Not connected</text>
+<g>
+<rect x="1244" y="38" width="148" height="56" rx="20" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="1244" y="38" width="148" height="56" rx="20" fill="url(#gPale)"/>
+<rect x="1244" y="38" width="148" height="56" rx="20" fill="url(#gGlowPale)"/>
+<rect x="1244" y="38" width="148" height="56" rx="20" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="1264.72" y="41.36" width="106.56" height="16.8" rx="14.0" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="1255.1" cy="66.0" rx="2.96" ry="9.520000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1380.9" cy="66.0" rx="2.96" ry="9.520000000000001" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1318.0" cy="88.68" rx="20.720000000000002" ry="1.008" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="1245.2" y="39.2" width="145.6" height="53.6" rx="18.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<text x="1318" y="74" font-size="19" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">Connect</text>
+<g>
+<rect x="48" y="130" width="860" height="350" rx="48" fill="#000" fill-opacity=".001" filter="url(#shadow)"/>
+<clipPath id="c1"><rect x="48" y="130" width="860" height="350" rx="48"/></clipPath>
+<rect x="48" y="130" width="860" height="350" rx="48" fill="url(#pBody)"/>
+<g clip-path="url(#c1)">
+<rect x="48" y="130" width="860" height="350" rx="48" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/>
+<ellipse cx="254.4" cy="135" rx="172.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/>
+<ellipse cx="684.4" cy="475" rx="223.6" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/>
+</g>
+<rect x="49.8" y="131.8" width="856.4" height="346.4" rx="46.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/>
+<rect x="56" y="138" width="844" height="334" rx="40" fill="none" stroke="url(#pLine)" stroke-width="1.8"/>
+</g>
+<path d="M389.6 388.4A125 125 0 1 1 566.4 388.4" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="22" stroke-linecap="round"/>
+<circle cx="389.6" cy="390.4" r="23" fill="#0b3a1c" fill-opacity=".3" filter="url(#b2)"/>
+<circle cx="389.6" cy="388.4" r="21" fill="url(#gWhite)" stroke="#2f8a3f" stroke-width="5.9"/>
+<text x="389.6116523516816" y="424.3883476483185" font-size="15" font-weight="600" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0">0</text>
+<text x="566.3883476483185" y="424.3883476483185" font-size="15" font-weight="600" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0">12</text>
+<text x="478" y="225.6" font-size="16" font-weight="700" fill="#fff" text-anchor="middle" opacity="0.85" letter-spacing="2" filter="url(#tshadow)">SPEED</text>
+<text x="478" y="338.4" font-size="120" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">0.0</text>
+<text x="478" y="374.4" font-size="20" font-weight="600" fill="#0f3d22" text-anchor="middle" opacity="0.85" letter-spacing="0">km/h</text>
+<text x="478" y="462" font-size="17" font-weight="500" fill="#fff" text-anchor="middle" opacity="0.9" letter-spacing="0" filter="url(#tshadow)">Connect to a treadmill to start</text>
+<g>
+<rect x="932" y="130" width="460" height="160" rx="44" fill="#000" fill-opacity=".001" filter="url(#shadow)"/>
+<clipPath id="c2"><rect x="932" y="130" width="460" height="160" rx="44"/></clipPath>
+<rect x="932" y="130" width="460" height="160" rx="44" fill="url(#pBody)"/>
+<g clip-path="url(#c2)">
+<rect x="932" y="130" width="460" height="160" rx="44" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/>
+<ellipse cx="1042.4" cy="135" rx="92.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/>
+<ellipse cx="1272.4" cy="285" rx="119.60000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/>
+</g>
+<rect x="933.8" y="131.8" width="456.4" height="156.4" rx="42.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/>
+<rect x="940" y="138" width="444" height="144" rx="36" fill="none" stroke="url(#pLine)" stroke-width="1.8"/>
+</g>
+<g>
+<rect x="972" y="166" width="88" height="88" rx="26" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="972" y="166" width="88" height="88" rx="26" fill="url(#gPale)"/>
+<rect x="972" y="166" width="88" height="88" rx="26" fill="url(#gGlowPale)"/>
+<rect x="972" y="166" width="88" height="88" rx="26" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="984.32" y="171.28" width="63.36" height="26.4" rx="18.2" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="978.6" cy="210.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1053.4" cy="210.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1016.0" cy="245.64" rx="12.32" ry="1.5839999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="973.2" y="167.2" width="85.6" height="85.6" rx="24.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<g transform="translate(996.0,190.0) scale(1.6666666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 5h11l-2.5 3.6L17 12H6" stroke="#0f3d22" stroke-width="2.2"/></g>
+<text x="1092" y="204" font-size="15" font-weight="700" fill="#fff" text-anchor="start" opacity="0.85" letter-spacing="1.8" filter="url(#tshadow)">DISTANCE</text>
+<text x="1092" y="252" font-size="48" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">0.00 km</text>
+<g>
+<rect x="932" y="320" width="460" height="160" rx="44" fill="#000" fill-opacity=".001" filter="url(#shadow)"/>
+<clipPath id="c3"><rect x="932" y="320" width="460" height="160" rx="44"/></clipPath>
+<rect x="932" y="320" width="460" height="160" rx="44" fill="url(#pBody)"/>
+<g clip-path="url(#c3)">
+<rect x="932" y="320" width="460" height="160" rx="44" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/>
+<ellipse cx="1042.4" cy="325" rx="92.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/>
+<ellipse cx="1272.4" cy="475" rx="119.60000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/>
+</g>
+<rect x="933.8" y="321.8" width="456.4" height="156.4" rx="42.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/>
+<rect x="940" y="328" width="444" height="144" rx="36" fill="none" stroke="url(#pLine)" stroke-width="1.8"/>
+</g>
+<g>
+<rect x="972" y="356" width="88" height="88" rx="26" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="972" y="356" width="88" height="88" rx="26" fill="url(#gPale)"/>
+<rect x="972" y="356" width="88" height="88" rx="26" fill="url(#gGlowPale)"/>
+<rect x="972" y="356" width="88" height="88" rx="26" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="984.32" y="361.28" width="63.36" height="26.4" rx="18.2" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="978.6" cy="400.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1053.4" cy="400.0" rx="1.76" ry="14.96" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1016.0" cy="435.64" rx="12.32" ry="1.5839999999999999" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="973.2" y="357.2" width="85.6" height="85.6" rx="24.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<g transform="translate(996.0,380.0) scale(1.6666666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5" stroke="#0f3d22" stroke-width="2.2"/><path d="M12 7v5.2l3.2 2" stroke="#0f3d22" stroke-width="2.2"/></g>
+<text x="1092" y="394" font-size="15" font-weight="700" fill="#fff" text-anchor="start" opacity="0.85" letter-spacing="1.8" filter="url(#tshadow)">TIME</text>
+<text x="1092" y="442" font-size="48" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">00:00</text>
+<g>
+<rect x="48" y="510" width="860" height="250" rx="48" fill="#000" fill-opacity=".001" filter="url(#shadow)"/>
+<clipPath id="c4"><rect x="48" y="510" width="860" height="250" rx="48"/></clipPath>
+<rect x="48" y="510" width="860" height="250" rx="48" fill="url(#pBody)"/>
+<g clip-path="url(#c4)">
+<rect x="48" y="510" width="860" height="250" rx="48" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/>
+<ellipse cx="254.4" cy="515" rx="172.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/>
+<ellipse cx="684.4" cy="755" rx="223.6" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/>
+</g>
+<rect x="49.8" y="511.8" width="856.4" height="246.4" rx="46.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/>
+<rect x="56" y="518" width="844" height="234" rx="40" fill="none" stroke="url(#pLine)" stroke-width="1.8"/>
+</g>
+<text x="88" y="566" font-size="20" font-weight="700" fill="#fff" text-anchor="start" opacity="1" letter-spacing="0" filter="url(#tshadow)">Quick speed</text>
+<text x="868" y="566" font-size="16" font-weight="600" fill="#fff" text-anchor="end" opacity="0.85" letter-spacing="0" filter="url(#tshadow)">km/h</text>
+<g>
+<rect x="88" y="594" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="88" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="88" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="88" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="101.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="95.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="176.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="136.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="89.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<text x="136" y="654" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">1.0</text>
+<g>
+<rect x="221" y="594" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="221" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="221" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="221" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="234.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="228.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="309.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="269.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="222.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<text x="269" y="654" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">2.0</text>
+<g>
+<rect x="354" y="594" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="354" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="354" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="354" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="367.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="361.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="442.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="402.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="355.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<text x="402" y="654" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">3.0</text>
+<g>
+<rect x="487" y="594" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="487" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="487" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="487" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="500.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="494.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="575.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="535.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="488.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<text x="535" y="654" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">4.0</text>
+<g>
+<rect x="620" y="594" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="620" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="620" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="620" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="633.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="627.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="708.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="668.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="621.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<text x="668" y="654" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">5.0</text>
+<g>
+<rect x="753" y="594" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="753" y="594" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="753" y="594" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="753" y="594" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="766.44" y="599.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="760.2" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="841.8" cy="642.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="801.0" cy="680.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="754.2" y="595.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<text x="801" y="654" font-size="26" font-weight="700" fill="#0f3d22" text-anchor="middle" opacity="1" letter-spacing="0">6.0</text>
+<g>
+<rect x="932" y="510" width="460" height="250" rx="48" fill="#000" fill-opacity=".001" filter="url(#shadow)"/>
+<clipPath id="c5"><rect x="932" y="510" width="460" height="250" rx="48"/></clipPath>
+<rect x="932" y="510" width="460" height="250" rx="48" fill="url(#pBody)"/>
+<g clip-path="url(#c5)">
+<rect x="932" y="510" width="460" height="250" rx="48" fill="none" stroke="#0b3a1c" stroke-opacity=".22" stroke-width="14" filter="url(#b6)"/>
+<ellipse cx="1042.4" cy="515" rx="92.0" ry="5" fill="#fff" fill-opacity=".55" filter="url(#b2)"/>
+<ellipse cx="1272.4" cy="755" rx="119.60000000000001" ry="6" fill="#fff" fill-opacity=".6" filter="url(#b2)"/>
+</g>
+<rect x="933.8" y="511.8" width="456.4" height="246.4" rx="46.2" fill="none" stroke="url(#pRim)" stroke-width="3.6"/>
+<rect x="940" y="518" width="444" height="234" rx="40" fill="none" stroke="url(#pLine)" stroke-width="1.8"/>
+</g>
+<g>
+<rect x="980" y="587" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="980" y="587" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="980" y="587" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="980" y="587" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="993.44" y="592.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="987.2" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1068.8" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1028.0" cy="673.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="981.2" y="588.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<g transform="translate(1009.0,616.0) scale(1.5833333333333333)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" stroke="#0f3d22" stroke-width="2.6"/></g>
+<g>
+<rect x="1106" y="579" width="112" height="112" rx="34" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="1106" y="579" width="112" height="112" rx="34" fill="url(#gDark)"/>
+<rect x="1106" y="579" width="112" height="112" rx="34" fill="url(#gGlowDark)"/>
+<rect x="1106" y="579" width="112" height="112" rx="34" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="1121.68" y="585.72" width="80.64" height="33.6" rx="23.799999999999997" fill="url(#gloss)" opacity="0.6"/>
+<ellipse cx="1114.4" cy="635.0" rx="2.24" ry="19.040000000000003" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1209.6" cy="635.0" rx="2.24" ry="19.040000000000003" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1162.0" cy="680.36" rx="15.680000000000001" ry="2.016" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="1107.2" y="580.2" width="109.6" height="109.6" rx="32.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<g transform="translate(1139.0,612.0) scale(1.9166666666666667)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5z" fill="#eaffc4" stroke="#eaffc4" stroke-width="1.6"/></g>
+<g>
+<rect x="1248" y="587" width="96" height="96" rx="29" fill="#000" fill-opacity=".001" filter="url(#bshadow)"/>
+<rect x="1248" y="587" width="96" height="96" rx="29" fill="url(#gPale)"/>
+<rect x="1248" y="587" width="96" height="96" rx="29" fill="url(#gGlowPale)"/>
+<rect x="1248" y="587" width="96" height="96" rx="29" fill="none" stroke="#cfe27a" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="1261.44" y="592.76" width="69.12" height="28.799999999999997" rx="20.299999999999997" fill="url(#gloss)" opacity="0.85"/>
+<ellipse cx="1255.2" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1336.8" cy="635.0" rx="1.92" ry="16.32" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="1296.0" cy="673.88" rx="13.440000000000001" ry="1.7279999999999998" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="1249.2" y="588.2" width="93.6" height="93.6" rx="27.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+</g>
+<g transform="translate(1277.0,616.0) scale(1.5833333333333333)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" stroke="#0f3d22" stroke-width="2.6"/></g>
+</svg>
