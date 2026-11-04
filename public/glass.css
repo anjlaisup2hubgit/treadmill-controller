@@ -16,10 +16,10 @@ body {
     linear-gradient(165deg, #2f6b48 0%, #6b9f4a 45%, #c9d94a 100%);
   background-attachment: fixed;
 }
-.page { max-width: 1280px; margin: 0 auto; padding: 38px 24px 60px; }
+.page { max-width: 1280px; margin: 0 auto; padding: 18px 24px; }
 
 /* ---------- header ---------- */
-.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 36px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
 .brand { display: flex; align-items: center; gap: 16px; color: #fff; }
 .logo { width: 56px; height: 56px; flex: none; filter: drop-shadow(0 6px 6px rgba(10,53,25,.32)); }
 .brand h1 { margin: 0; font-size: 30px; line-height: 1.1; font-weight: 700; }
@@ -138,8 +138,14 @@ body {
 }
 
 .err { background: rgba(120,20,20,.55); border-color: rgba(255,255,255,.4); color: #fff; font-size: 14px; }
+.glass.plain.log { position: fixed; left: 12px; bottom: 12px; z-index: 10; margin: 0; padding: 8px 14px; max-width: min(520px, 92vw); }
 .log summary { cursor: pointer; font-size: 13px; color: var(--mid); }
 .log pre { margin: 8px 0 0; max-height: 192px; overflow: auto; white-space: pre-wrap; font-size: 12px; color: var(--ink); }
+
+/* desktop: size the board so the hero (and the page) fits the viewport height */
+@media (min-width: 901px) {
+  .board { width: min(100%, calc((100vh - 120px) * 1.9)); margin: 0 auto; }
+}
 
 /* ---------- phones / narrow: crop the hero to its gauge column and stack ---------- */
 @media (max-width: 900px) {
