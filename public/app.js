@@ -407,6 +407,9 @@ function disconnect() {
 }
 
 (function init() {
+  window.addEventListener("error", (e) => log("JS error: " + e.message));
+  window.addEventListener("unhandledrejection", (e) => log("Promise error: " + (e.reason && e.reason.message || e.reason)));
+  log(`Loaded v6 | secure=${window.isSecureContext} | bluetooth=${"bluetooth" in navigator}`);
   setControlsEnabled(false);
   if (!window.isSecureContext) {
     showError("Web Bluetooth needs a secure context. Open this page via https:// or http://localhost.");
