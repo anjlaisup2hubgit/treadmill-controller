@@ -279,6 +279,7 @@ const doPause = async () => {
 document.addEventListener("click", (e) => {
   const t = e.target.closest("[data-act]");
   if (!t || t.disabled) return;
+  log("Tap: " + t.dataset.act);
   switch (t.dataset.act) {
     case "preset":    return setSpeed(parseFloat(t.dataset.speed));
     case "faster":    return changeSpeed(+state.speedStep);
@@ -380,6 +381,7 @@ async function connect() {
   clearError();
   state.userDisconnected = false;
   try {
+    log("Opening Bluetooth picker…");
     // Show only devices advertising FTMS
     const device = await navigator.bluetooth.requestDevice({
       filters: [{ services: [UUID.FTMS_SERVICE] }],
