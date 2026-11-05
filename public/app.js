@@ -382,9 +382,10 @@ async function connect() {
   state.userDisconnected = false;
   try {
     log("Opening Bluetooth picker…");
-    // Show only devices advertising FTMS
+    // Many treadmills don't advertise FTMS, so list all devices and request the service as optional
     const device = await navigator.bluetooth.requestDevice({
-      filters: [{ services: [UUID.FTMS_SERVICE] }],
+      acceptAllDevices: true,
+      optionalServices: [UUID.FTMS_SERVICE],
     });
     if (state.device) state.device.removeEventListener("gattserverdisconnected", onGattDisconnected);
     state.device = device;
