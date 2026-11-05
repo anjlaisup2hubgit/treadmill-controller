@@ -3,6 +3,11 @@
 Logs which features were added and removed.
 Source: `public/.git` history.
 
+## 2026-11-05 — Glass logo
+
+### Changed
+- Favicon/logo now matches the glass mockup tile (green glass rounded square with three mint chevrons)
+
 ## 2026-10-23 — aaec558 "Deploy public site"
 
 ### Added

@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0f172a"/><g fill="none" stroke="#6ee7b7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18 28 32 14 46" opacity=".4"/><path d="M26 18 40 32 26 46" opacity=".7"/><path d="M38 18 52 32 38 46"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs>
+<radialGradient id="gDark" cx=".5" cy=".38" r=".72"><stop offset="0" stop-color="#43a04a"/><stop offset=".55" stop-color="#1d7433"/><stop offset="1" stop-color="#0b4120"/></radialGradient>
+<radialGradient id="gGlowDark" cx=".5" cy="1" r=".75"><stop offset="0" stop-color="#c4f560" stop-opacity=".75"/><stop offset="1" stop-color="#c4f560" stop-opacity="0"/></radialGradient>
+<linearGradient id="gRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".42" stop-color="#fff" stop-opacity=".1"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity=".85"/></linearGradient>
+<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.1"/></filter>
+</defs>
+<rect width="64" height="64" rx="20" fill="url(#gDark)"/>
+<rect width="64" height="64" rx="20" fill="url(#gGlowDark)"/>
+<rect width="64" height="64" rx="20" fill="none" stroke="#a6dc6e" stroke-opacity=".8" stroke-width="1.6"/>
+<rect x="8.96" y="3.84" width="46.08" height="19.2" rx="14" fill="url(#gloss)" opacity=".6"/>
+<ellipse cx="4.8" cy="32" rx="1.28" ry="10.88" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="59.2" cy="32" rx="1.28" ry="10.88" fill="#fff" fill-opacity=".75" filter="url(#b1)"/>
+<ellipse cx="32" cy="57.92" rx="8.96" ry="1.152" fill="#fff" fill-opacity=".6" filter="url(#b1)"/>
+<rect x="1.2" y="1.2" width="61.6" height="61.6" rx="18.8" fill="none" stroke="url(#gRim)" stroke-width="2.4"/>
+<g transform="translate(14,14) scale(1.5)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6l6 6-6 6" opacity=".4" stroke="#b6f27a" stroke-width="2.6"/><path d="M10 6l6 6-6 6" opacity=".7" stroke="#b6f27a" stroke-width="2.6"/><path d="M15 6l6 6-6 6" stroke="#b6f27a" stroke-width="2.6"/></g>
+</svg>
