@@ -17,15 +17,15 @@ body {
 
 /* ---------- stage ---------- */
 .page {
-  min-height: var(--vh); display: flex; align-items: center; justify-content: center;
+  height: var(--vh); overflow: hidden; display: flex; align-items: center; justify-content: center;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 .stage { position: relative; flex: none; overflow: hidden; display: none; user-select: none; -webkit-user-select: none; }
 .canvas { position: absolute; left: 0; top: 0; }
 
-/* phone / tablet: fit the width, shrink to fit the height but never below 85% of the width fit */
+/* phone / tablet: always fit both width and height (minus safe areas), whichever is tighter */
 .stage-m {
-  --u: min(calc(100vw / 430), max(calc(var(--vh) / 888), calc(100vw / 430 * .85)), 1.6px);
+  --u: min(calc((100vw - env(safe-area-inset-left) - env(safe-area-inset-right)) / 430), calc((var(--vh) - env(safe-area-inset-top) - env(safe-area-inset-bottom)) / 888), 1.6px);
   display: block; width: calc(430 * var(--u)); height: calc(888 * var(--u));
 }
 .stage-m .canvas { top: calc(-44 * var(--u)); width: calc(430 * var(--u)); height: calc(932 * var(--u)); } /* the mockup's fake status bar is the phone's real one */
