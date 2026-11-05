@@ -1,4 +1,4 @@
-﻿# Treadmill Controller
+# Treadmill Controller
 
 This web page lets you watch and control your treadmill from your phone or computer.
 
@@ -42,10 +42,41 @@ Open it here: https://anjlaisup2hubgit.github.io/treadmill-controller/
 - If you see no treadmill in the list, make sure it is awake and not connected to another phone or app.
 - If the controls stay grey, your treadmill allows viewing but not control.
 
-## Files
+## Run it
 
-- `public/` holds the website, which is `index.html` and `styles.css`.
-- `src/components/` has one note for each feature on the page.
-- `docs/changelog.md` records which features were added or removed.
-- `input.css` and `tailwind.config.js` are used to build `styles.css`.
-- A GitHub Actions workflow publishes `public/` to the site above whenever `main` changes.
+**Easiest:** open https://anjlaisup2hubgit.github.io/treadmill-controller/ in Chrome or Edge (or Bluefy on iPhone). There is nothing to install.
+
+**On your own computer:**
+
+1. Install [Python 3](https://www.python.org/downloads/) if you do not have it.
+2. Download or clone this repository.
+3. Open a terminal in the project folder and run:
+
+   ```bash
+   cd public
+   python -m http.server 8000
+   ```
+
+4. Open http://localhost:8000 in Chrome or Edge.
+
+Bluetooth only works on `localhost` or `https`, so double-clicking `index.html` will not work.
+
+## File tree
+
+```
+treadmill-controller/
+├── .github/
+│   └── workflows/
+│       └── pages.yml        publishes public/ to GitHub Pages when main changes
+├── public/                  the website
+│   ├── index.html
+│   ├── app.js
+│   ├── glass.css
+│   └── favicon.svg
+├── docs/
+│   ├── changelog.md         which features were added or removed
+│   ├── components/          one note per feature on the page
+│   └── mockups/             design mockups (SVG)
+├── CLAUDE.md
+└── README.md
+```
