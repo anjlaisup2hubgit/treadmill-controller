@@ -66,6 +66,7 @@ const state = {
   deviceDistanceM: null, deviceElapsedS: null,
   localDistanceKm: 0, localSeconds: 0,
   lastTick: performance.now(),
+  packets: 0, connectedAt: 0,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -177,6 +178,11 @@ function onTreadmillData(ev) {
   try { d = parseTreadmillData(ev.target.value); }
   catch (e) { log("Bad treadmill packet: " + e.message); return; }
 
+  state.packets++;
+  if (state.packets <= 3) {
+    const hex = Array.from(new Uint8Array(ev.target.value.buffer), (b) => b.toString(16).padStart(2, "0")).join(" ");
+    log(`Data packet #${state.packets}: ${hex} -> ${JSON.stringify(d)}`);
+  }
   if (d.speedKmh != null) {
     state.speed = d.speedKmh;
     if (state.targetKmh == null) state.targetKmh = Math.max(state.speedMin, Math.round(d.speedKmh * 10) / 10);
@@ -325,6 +331,7 @@ async function setupGatt(server) {
     }
   }
 
+  if (ftms) log("FTMS service found");
   if (!ftms) log("No FTMS service on this device (unsupported treadmill).");
 }
 
@@ -336,6 +343,12 @@ async function connectToDevice(device) {
   if (!device.gatt.connected) throw new DOMException("Connection dropped during setup", "NetworkError");
   setStatus(`Connected · ${device.name || "device"}`);
   setConnectLabel("Disconnect");
+  state.packets = 0; state.connectedAt = performance.now();
+  log(`Setup done | gatt.connected=${device.gatt.connected} | control=${state.hasControl}`);
+  setTimeout(() => {
+    if (state.device === device && state.packets === 0)
+      log(`WARNING: no treadmill data 5s after connect | gatt.connected=${device.gatt.connected}`);
+  }, 5000);
 }
 
 function resetUiDisconnected(msg) {
@@ -371,7 +384,8 @@ async function reconnect() {
 }
 
 function onGattDisconnected() {
-  log("GATT disconnected");
+  log(`GATT disconnected ${state.connectedAt ? ((performance.now() - state.connectedAt) / 1000).toFixed(1) + "s after connect" : "during setup"} | packets=${state.packets}`);
+  state.connectedAt = 0;
   if (state.pending) { clearTimeout(state.pending.timer); state.pending = null; }
   setControlsEnabled(false);
   state.speed = 0; render();
