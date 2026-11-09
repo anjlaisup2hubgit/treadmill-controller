@@ -332,6 +332,8 @@ async function connectToDevice(device) {
   setStatus(`Connecting to ${device.name || "device"}…`);
   const server = await device.gatt.connect();
   await setupGatt(server);
+  // The link can drop mid-setup; the disconnect event is ignored while a reconnect is running, so check here
+  if (!device.gatt.connected) throw new DOMException("Connection dropped during setup", "NetworkError");
   setStatus(`Connected · ${device.name || "device"}`);
   setConnectLabel("Disconnect");
 }
