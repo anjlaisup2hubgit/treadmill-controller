@@ -263,7 +263,16 @@ all(".speed-input").forEach((input) => {
 
 const doStart = async () => {
   await safeControl("Start", [OP.START]);
-  if (state.targetKmh != null) await safeControl("Set speed", setSpeedBytes(state.targetKmh));
+  const target = state.targetKmh;
+  if (target == null) return;
+  // Treadmills often ignore speed commands during their start countdown, so repeat until the belt reaches the target
+  for (let i = 0; i < 10 && state.device && state.device.gatt.connected; i++) {
+    if (state.targetKmh !== target) return; // user picked another speed meanwhile
+    try { await sendControl(setSpeedBytes(target)); } catch (e) { log("Set speed retry: " + explainError(e)); }
+    await new Promise((r) => setTimeout(r, 1000));
+    if (Math.abs(state.speed - target) < 0.15) return;
+  }
+  if (Math.abs(state.speed - target) >= 0.15) showError(`Treadmill did not reach ${target.toFixed(1)} km/h.`);
 };
 const doPause = async () => {
   try {
